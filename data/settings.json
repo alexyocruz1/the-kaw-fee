@@ -1,0 +1,6 @@
+{
+  "laborRatePerHour": 50,
+  "electricityCostPerKwh": 4.5,
+  "globalMarginMultiplier": 3,
+  "gasCostPerKg": 21
+}

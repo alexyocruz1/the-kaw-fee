@@ -1,0 +1,50 @@
+[
+  {
+    "id": "prod_1786492101692",
+    "name": "Brownie de Chokis",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488765006",
+        "quantity": 10,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488483576",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488963329",
+        "quantity": 0.25,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1786490569778",
+        "quantity": 1,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 0.66,
+        "unit": "taza derretida"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 2,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 1,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786490637269",
+        "quantity": 0.5,
+        "unit": "taza"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0
+  }
+]

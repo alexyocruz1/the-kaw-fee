@@ -1,0 +1,18 @@
+[
+  {
+    "id": "eq_1786490716061",
+    "name": "Microondas Winia",
+    "powerKW": 1.2
+  },
+  {
+    "id": "eq_1786490817424",
+    "name": "Horno Oster",
+    "powerKW": 1.7
+  },
+  {
+    "id": "eq_1786491149653",
+    "name": "Estufa Avera",
+    "powerKW": 0.13,
+    "energyType": "gas"
+  }
+]

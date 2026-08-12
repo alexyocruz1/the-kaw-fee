@@ -1,0 +1,91 @@
+[
+  {
+    "id": "ing_1786488412834",
+    "name": "Mantequilla Gloria",
+    "unit": "gramo",
+    "packageSize": 90,
+    "costPerUnit": 30,
+    "customEquivalences": [
+      {
+        "unitName": "taza derretida",
+        "ratioToBase": 0.00439
+      }
+    ]
+  },
+  {
+    "id": "ing_1786488483576",
+    "name": "Harina Duncan Chewy Fudge",
+    "unit": "gramo",
+    "packageSize": 520,
+    "costPerUnit": 78,
+    "customEquivalences": [
+      {
+        "unitName": "pieza",
+        "ratioToBase": 0.001923
+      }
+    ]
+  },
+  {
+    "id": "ing_1786488765006",
+    "name": "Chokis",
+    "unit": "pieza",
+    "packageSize": 42,
+    "costPerUnit": 58
+  },
+  {
+    "id": "ing_1786488818728",
+    "name": "Oreo",
+    "unit": "pieza",
+    "packageSize": 24,
+    "costPerUnit": 33
+  },
+  {
+    "id": "ing_1786488963329",
+    "name": "Lala deslactosada",
+    "unit": "litro",
+    "packageSize": 6,
+    "costPerUnit": 170
+  },
+  {
+    "id": "ing_1786490533402",
+    "name": "Extracto de Vainilla ProGourmet",
+    "unit": "ml",
+    "packageSize": 150,
+    "costPerUnit": 89,
+    "customEquivalences": []
+  },
+  {
+    "id": "ing_1786490569778",
+    "name": "Café soluble Nescafé",
+    "unit": "gramo",
+    "packageSize": 100,
+    "costPerUnit": 176,
+    "customEquivalences": [
+      {
+        "unitName": "cucharadita",
+        "ratioToBase": 0.5
+      }
+    ]
+  },
+  {
+    "id": "ing_1786490598989",
+    "name": "Huevo Bachoco",
+    "unit": "pieza",
+    "packageSize": 30,
+    "costPerUnit": 70,
+    "customEquivalences": []
+  },
+  {
+    "id": "ing_1786490637269",
+    "name": "Chispas de Chocolate Hershey's",
+    "unit": "gramo",
+    "packageSize": 300,
+    "costPerUnit": 125,
+    "customEquivalences": [
+      {
+        "unitName": "taza",
+        "ratioToBase": 0.006
+      }
+    ]
+  }
+]
