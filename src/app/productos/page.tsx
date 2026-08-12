@@ -21,6 +21,7 @@ type Product = {
   equipmentUsage: ProductEquipment[];
   prepTimeMinutes: number;
   customMarginMultiplier?: number;
+  yield?: number;
 };
 
 // Auto Conversion engine
@@ -87,20 +88,27 @@ export default function ProductosPage() {
   
   const [isAdding, setIsAdding] = useState(false);
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
+  const [insightsProduct, setInsightsProduct] = useState<Product | null>(null);
+  const [isBatch, setIsBatch] = useState(false);
+  const [batchYield, setBatchYield] = useState(0);
   const [formProduct, setFormProduct] = useState<Omit<Product, 'id'>>({
     name: '',
     ingredients: [],
     equipmentUsage: [],
     prepTimeMinutes: 0,
+    // yield will be set via effect when batch mode changes
   });
 
-  const [insightsProduct, setInsightsProduct] = useState<Product | null>(null);
+  // Sync batch fields to formProduct
+  useEffect(() => {
+    setFormProduct(prev => ({
+      ...prev,
+      yield: isBatch ? (batchYield || undefined) : undefined,
+    }));
+  }, [isBatch, batchYield]);
+
   const [search, setSearch] = useState('');
   
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = () => {
     Promise.all([
       fetch('/api/products').then(res => res.json()),
@@ -116,6 +124,10 @@ export default function ProductosPage() {
     });
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleSaveProduct = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formProduct.name) return;
@@ -123,7 +135,8 @@ export default function ProductosPage() {
     const finalProduct = {
       ...formProduct,
       ingredients: formProduct.ingredients.map(i => ({ ...i, quantity: Number(i.quantity) || 0 })),
-      equipmentUsage: formProduct.equipmentUsage.map(eq => ({ ...eq, minutesUsed: Number(eq.minutesUsed) || 0 }))
+      equipmentUsage: formProduct.equipmentUsage.map(eq => ({ ...eq, minutesUsed: Number(eq.minutesUsed) || 0 })),
+      yield: isBatch ? (batchYield || 0) : undefined
     };
 
     if (editingProductId) {
@@ -155,7 +168,15 @@ export default function ProductosPage() {
   };
 
   const resetForm = () => {
-    setFormProduct({ name: '', ingredients: [], equipmentUsage: [], prepTimeMinutes: 0 });
+    setFormProduct({
+      name: '',
+      ingredients: [],
+      equipmentUsage: [],
+      prepTimeMinutes: 0,
+      yield: isBatch ? batchYield || undefined : undefined,
+    });
+    setIsBatch(false);
+    setBatchYield(0);
     setIsAdding(false);
     setEditingProductId(null);
   };
@@ -167,8 +188,11 @@ export default function ProductosPage() {
       ingredients: prod.ingredients.map(i => ({...i, unit: i.unit || ''})), 
       equipmentUsage: [...prod.equipmentUsage],
       prepTimeMinutes: prod.prepTimeMinutes,
-      customMarginMultiplier: prod.customMarginMultiplier
+      customMarginMultiplier: prod.customMarginMultiplier,
+      yield: prod.yield
     });
+    setIsBatch(!!prod.yield);
+    setBatchYield(prod.yield || 0);
     setIsAdding(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -350,6 +374,35 @@ export default function ProductosPage() {
               <input type="text" className="form-input" value={formProduct.name} onChange={e => setFormProduct({...formProduct, name: e.target.value})} required placeholder="ej. Lote de 10 Croissants" />
             </div>
 
+            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+              <label className="form-label">
+                ¿Es un lote? <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}> (Marque si el producto se prepara en lotes y especifique cuántas porciones rinde el lote)
+                </span>
+              </label>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginTop: '0.5rem' }}>
+                <input
+                  type="checkbox"
+                  checked={isBatch}
+                  onChange={e => setIsBatch(e.target.checked)}
+                  style={{ width: '1.25rem', height: '1.25rem', cursor: 'pointer' }}
+                />
+                {isBatch && (
+                  <>
+                    <span className="form-label" style={{ marginRight: '0.5rem' }}>Porciones por lote:</span>
+                    <input
+                      type="number"
+                      min={1}
+                      placeholder="Ej: 12"
+                      value={batchYield}
+                      onChange={e => setBatchYield(parseInt(e.target.value) || 0)}
+                      className="form-input"
+                      style={{ width: '100px' }}
+                    />
+                  </>
+                )}
+              </div>
+            </div>
+
             <div className="responsive-grid-2" style={{ display: 'grid', gap: '2rem', marginBottom: '2rem' }} data-cols="1fr 1fr">
               <div>
                 <h4 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>1. Mano de Obra</h4>
@@ -452,6 +505,19 @@ export default function ProductosPage() {
               </div>
             </div>
 
+            {isBatch && batchYield > 0 && (
+              <div className="product-summary" style={{ background: 'white', border: '2px solid var(--accent-secondary)', color: 'var(--text-primary)', padding: '2rem', borderRadius: 'var(--border-radius-md)', marginTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Costo por porción</p>
+                  <strong style={{ fontSize: '1.4rem' }}>${(calculateTotalCost(formProduct) / batchYield).toFixed(2)}</strong>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Precio por porción (venta)</p>
+                  <h2 style={{ color: 'var(--accent-secondary)', fontSize: '2.5rem', margin: 0 }}>${(calculateSuggestedPrice(formProduct) / batchYield).toFixed(2)}</h2>
+                </div>
+              </div>
+            )}
+
             <div style={{ marginTop: '2rem', textAlign: 'right' }}>
               <button type="submit" className="btn btn-primary" style={{ padding: '1rem 3rem', fontSize: '1.2rem' }}>
                 {editingProductId ? 'Actualizar Producto' : 'Guardar Producto'}
@@ -494,6 +560,7 @@ export default function ProductosPage() {
               <span className="badge badge-auto">🧠 {prod.ingredients.length} ingrediente{prod.ingredients.length !== 1 ? 's' : ''}</span>
               <span className="badge badge-auto" style={{ marginTop: '4px' }}>⏱️ {prod.prepTimeMinutes} min preparación</span>
               {prod.equipmentUsage.length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>⚡ {prod.equipmentUsage.length} equipo{prod.equipmentUsage.length !== 1 ? 's' : ''}</span>}
+              {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍪 {prod.yield} porción{prod.yield !== 1 ? 'es' : ''} por lote</span> : null}
             </div>
 
             <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem', marginTop: 'auto' }}>
@@ -501,9 +568,15 @@ export default function ProductosPage() {
                 <span style={{ color: 'var(--text-secondary)' }}>Costo Total:</span>
                 <strong>${calculateTotalCost(prod).toFixed(2)}</strong>
               </div>
+              {prod.yield ? (
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                  <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Costo por porción:</span>
+                  <strong>${(calculateTotalCost(prod) / prod.yield).toFixed(2)}</strong>
+                </div>
+              ) : null}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Precio Sugerido:</span>
-                <span style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--accent-primary)' }}>${calculateSuggestedPrice(prod).toFixed(2)}</span>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{prod.yield ? 'Precio por porción:' : 'Precio Sugerido:'}</span>
+                <span style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--accent-primary)' }}>${(calculateSuggestedPrice(prod) / (prod.yield || 1)).toFixed(2)}</span>
               </div>
               
               <button 
@@ -544,106 +617,108 @@ export default function ProductosPage() {
             </div>
             
             <div style={{ padding: '2rem' }}>
-              {(() => {
-                const breakdown = calculateBreakdown(insightsProduct);
-                const totalCost = calculateTotalCost(insightsProduct);
-                const suggestedPrice = calculateSuggestedPrice(insightsProduct);
-                const profit = suggestedPrice - totalCost;
-                const foodCostPct = (breakdown.ingsCost / suggestedPrice) * 100 || 0;
-                const marginPct = (profit / suggestedPrice) * 100 || 0;
+              {insightsProduct ? (
+                (() => {
+                  const breakdown = calculateBreakdown(insightsProduct);
+                  const totalCost = calculateTotalCost(insightsProduct);
+                  const suggestedPrice = calculateSuggestedPrice(insightsProduct);
+                  const profit = suggestedPrice - totalCost;
+                  const foodCostPct = (breakdown.ingsCost / suggestedPrice) * 100 || 0;
+                  const marginPct = (profit / suggestedPrice) * 100 || 0;
 
-                let recommendation = "";
-                let recommendationColor = "var(--text-secondary)";
-                let recommendationIcon = "💡";
+                  let recommendation = "";
+                  let recommendationColor = "var(--text-secondary)";
+                  let recommendationIcon = "💡";
 
-                if (foodCostPct > 35) {
-                  recommendation = "El costo de ingredientes (Food Cost) es mayor al 35%. Estás sacrificando margen. Considera subir el precio de venta, reducir porciones o buscar proveedores más económicos.";
-                  recommendationColor = "#e53e3e"; // Red
-                  recommendationIcon = "⚠️";
-                } else if (foodCostPct > 0 && foodCostPct <= 25) {
-                  recommendation = "Tienes un margen excelente (Food Cost bajo). Este producto es altamente rentable. ¡Considera hacer campañas de marketing o combos para vender más volumen de este!";
-                  recommendationColor = "var(--accent-secondary)"; // Caribe green
-                  recommendationIcon = "🚀";
-                } else {
-                  recommendation = "El costo de alimentos está dentro del rango ideal (25% - 35%). Es un producto perfectamente equilibrado. Sigue monitoreando los precios de los ingredientes.";
-                  recommendationColor = "var(--accent-primary)"; // Canela
-                  recommendationIcon = "✅";
-                }
+                  if (foodCostPct > 35) {
+                    recommendation = "El costo de ingredientes (Food Cost) es mayor al 35%. Estás sacrificando margen. Considera subir el precio de venta, reducir porciones o buscar proveedores más económicos.";
+                    recommendationColor = "#e53e3e"; // Red
+                    recommendationIcon = "⚠️";
+                  } else if (foodCostPct > 0 && foodCostPct <= 25) {
+                    recommendation = "Tienes un margen excelente (Food Cost bajo). Este producto es altamente rentable. ¡Considera hacer campañas de marketing o combos para vender más volumen de este!";
+                    recommendationColor = "var(--accent-secondary)"; // Caribe green
+                    recommendationIcon = "🚀";
+                  } else {
+                    recommendation = "El costo de alimentos está dentro del rango ideal (25% - 35%). Es un producto perfectamente equilibrado. Sigue monitoreando los precios de los ingredientes.";
+                    recommendationColor = "var(--accent-primary)"; // Canela
+                    recommendationIcon = "✅";
+                  }
 
-                return (
-                  <div>
-                    {/* Key Metrics */}
-                    <div className="responsive-grid-2" style={{ display: 'grid', gap: '1rem', marginBottom: '2.5rem' }} data-cols="1fr 1fr">
-                      <div style={{ background: 'var(--color-carbon)', padding: '1.5rem', borderRadius: 'var(--border-radius-sm)', textAlign: 'center', color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                        <p style={{ color: 'var(--color-leche)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Precio Sugerido</p>
-                        <h3 style={{ color: 'var(--accent-primary)', fontSize: '2.5rem', margin: '0' }}>${suggestedPrice.toFixed(2)}</h3>
+                  return (
+                    <div>
+                      {/* Key Metrics */}
+                      <div className="responsive-grid-2" style={{ display: 'grid', gap: '1rem', marginBottom: '2.5rem' }} data-cols="1fr 1fr">
+                        <div style={{ background: 'var(--color-carbon)', padding: '1.5rem', borderRadius: 'var(--border-radius-sm)', textAlign: 'center', color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                          <p style={{ color: 'var(--color-leche)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Precio Sugerido</p>
+                          <h3 style={{ color: 'var(--accent-primary)', fontSize: '2.5rem', margin: '0' }}>${suggestedPrice.toFixed(2)}</h3>
+                        </div>
+                        
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                          <div style={{ background: 'white', padding: '1rem 1.5rem', borderRadius: 'var(--border-radius-sm)', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Ganancia Neta</span>
+                            <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>${profit.toFixed(2)}</span>
+                          </div>
+                          <div style={{ background: 'white', padding: '1rem 1.5rem', borderRadius: 'var(--border-radius-sm)', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Margen (Profit)</span>
+                            <span style={{ fontSize: '1.25rem', fontWeight: 700, color: marginPct >= 65 ? 'var(--accent-secondary)' : 'var(--text-primary)' }}>{marginPct.toFixed(1)}%</span>
+                          </div>
+                        </div>
                       </div>
+
+                      {/* AI Insights Box */}
+                      <div style={{ padding: '1.5rem', background: 'rgba(255, 255, 255, 0.8)', border: `2px solid ${recommendationColor}`, borderRadius: 'var(--border-radius-md)', marginBottom: '2.5rem', display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
+                        <div style={{ fontSize: '2rem', lineHeight: 1 }}>{recommendationIcon}</div>
+                        <div>
+                          <h4 style={{ margin: '0 0 0.5rem 0', color: recommendationColor, fontSize: '1rem' }}>Socio de Negocios</h4>
+                          <p style={{ fontSize: '0.95rem', lineHeight: 1.5, color: 'var(--text-primary)', margin: 0 }}>
+                            {recommendation}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Cost Breakdown */}
+                      <h4 style={{ marginBottom: '1.5rem', color: 'var(--text-primary)', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>
+                        Desglose de Costo Total: <span style={{ color: 'var(--accent-primary)' }}>${totalCost.toFixed(2)}</span>
+                      </h4>
                       
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <div style={{ background: 'white', padding: '1rem 1.5rem', borderRadius: 'var(--border-radius-sm)', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Ganancia Neta</span>
-                          <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>${profit.toFixed(2)}</span>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                        {/* Ingredientes */}
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem', fontSize: '0.9rem' }}>
+                            <span style={{ fontWeight: 500 }}>🥕 Ingredientes (Food Cost)</span>
+                            <span style={{ fontWeight: 600 }}>${breakdown.ingsCost.toFixed(2)} <span style={{ color: 'var(--text-secondary)', fontWeight: 400 }}>({((breakdown.ingsCost / totalCost) * 100 || 0).toFixed(1)}%)</span></span>
+                          </div>
+                          <div style={{ height: '10px', background: 'rgba(0,0,0,0.05)', borderRadius: '5px', overflow: 'hidden' }}>
+                            <div style={{ width: `${(breakdown.ingsCost / totalCost) * 100 || 0}%`, height: '100%', background: 'var(--accent-primary)', transition: 'width 1s ease-out' }}></div>
+                          </div>
                         </div>
-                        <div style={{ background: 'white', padding: '1rem 1.5rem', borderRadius: 'var(--border-radius-sm)', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Margen (Profit)</span>
-                          <span style={{ fontSize: '1.25rem', fontWeight: 700, color: marginPct >= 65 ? 'var(--accent-secondary)' : 'var(--text-primary)' }}>{marginPct.toFixed(1)}%</span>
+
+                        {/* Mano de Obra */}
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem', fontSize: '0.9rem' }}>
+                            <span style={{ fontWeight: 500 }}>👨‍🍳 Mano de Obra</span>
+                            <span style={{ fontWeight: 600 }}>${breakdown.laborCost.toFixed(2)} <span style={{ color: 'var(--text-secondary)', fontWeight: 400 }}>({((breakdown.laborCost / totalCost) * 100 || 0).toFixed(1)}%)</span></span>
+                          </div>
+                          <div style={{ height: '10px', background: 'rgba(0,0,0,0.05)', borderRadius: '5px', overflow: 'hidden' }}>
+                            <div style={{ width: `${(breakdown.laborCost / totalCost) * 100 || 0}%`, height: '100%', background: 'var(--color-carbon)', transition: 'width 1s ease-out' }}></div>
+                          </div>
+                        </div>
+
+                        {/* Equipos / Energía */}
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem', fontSize: '0.9rem' }}>
+                            <span style={{ fontWeight: 500 }}>⚡ Energía (Equipos)</span>
+                            <span style={{ fontWeight: 600 }}>${breakdown.equipCost.toFixed(2)} <span style={{ color: 'var(--text-secondary)', fontWeight: 400 }}>({((breakdown.equipCost / totalCost) * 100 || 0).toFixed(1)}%)</span></span>
+                          </div>
+                          <div style={{ height: '10px', background: 'rgba(0,0,0,0.05)', borderRadius: '5px', overflow: 'hidden' }}>
+                            <div style={{ width: `${(breakdown.equipCost / totalCost) * 100 || 0}%`, height: '100%', background: 'var(--accent-secondary)', transition: 'width 1s ease-out' }}></div>
+                          </div>
                         </div>
                       </div>
                     </div>
-
-                    {/* AI Insights Box */}
-                    <div style={{ padding: '1.5rem', background: 'rgba(255, 255, 255, 0.8)', border: `2px solid ${recommendationColor}`, borderRadius: 'var(--border-radius-md)', marginBottom: '2.5rem', display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-                      <div style={{ fontSize: '2rem', lineHeight: 1 }}>{recommendationIcon}</div>
-                      <div>
-                        <h4 style={{ margin: '0 0 0.5rem 0', color: recommendationColor, fontSize: '1rem' }}>Socio de Negocios</h4>
-                        <p style={{ fontSize: '0.95rem', lineHeight: 1.5, color: 'var(--text-primary)', margin: 0 }}>
-                          {recommendation}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Cost Breakdown */}
-                    <h4 style={{ marginBottom: '1.5rem', color: 'var(--text-primary)', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>
-                      Desglose de Costo Total: <span style={{ color: 'var(--accent-primary)' }}>${totalCost.toFixed(2)}</span>
-                    </h4>
-                    
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                      {/* Ingredientes */}
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem', fontSize: '0.9rem' }}>
-                          <span style={{ fontWeight: 500 }}>🥕 Ingredientes (Food Cost)</span>
-                          <span style={{ fontWeight: 600 }}>${breakdown.ingsCost.toFixed(2)} <span style={{ color: 'var(--text-secondary)', fontWeight: 400 }}>({((breakdown.ingsCost / totalCost) * 100 || 0).toFixed(1)}%)</span></span>
-                        </div>
-                        <div style={{ height: '10px', background: 'rgba(0,0,0,0.05)', borderRadius: '5px', overflow: 'hidden' }}>
-                          <div style={{ width: `${(breakdown.ingsCost / totalCost) * 100 || 0}%`, height: '100%', background: 'var(--accent-primary)', transition: 'width 1s ease-out' }}></div>
-                        </div>
-                      </div>
-
-                      {/* Mano de Obra */}
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem', fontSize: '0.9rem' }}>
-                          <span style={{ fontWeight: 500 }}>👨‍🍳 Mano de Obra</span>
-                          <span style={{ fontWeight: 600 }}>${breakdown.laborCost.toFixed(2)} <span style={{ color: 'var(--text-secondary)', fontWeight: 400 }}>({((breakdown.laborCost / totalCost) * 100 || 0).toFixed(1)}%)</span></span>
-                        </div>
-                        <div style={{ height: '10px', background: 'rgba(0,0,0,0.05)', borderRadius: '5px', overflow: 'hidden' }}>
-                          <div style={{ width: `${(breakdown.laborCost / totalCost) * 100 || 0}%`, height: '100%', background: 'var(--color-carbon)', transition: 'width 1s ease-out' }}></div>
-                        </div>
-                      </div>
-
-                      {/* Equipos / Energía */}
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem', fontSize: '0.9rem' }}>
-                          <span style={{ fontWeight: 500 }}>⚡ Energía (Equipos)</span>
-                          <span style={{ fontWeight: 600 }}>${breakdown.equipCost.toFixed(2)} <span style={{ color: 'var(--text-secondary)', fontWeight: 400 }}>({((breakdown.equipCost / totalCost) * 100 || 0).toFixed(1)}%)</span></span>
-                        </div>
-                        <div style={{ height: '10px', background: 'rgba(0,0,0,0.05)', borderRadius: '5px', overflow: 'hidden' }}>
-                          <div style={{ width: `${(breakdown.equipCost / totalCost) * 100 || 0}%`, height: '100%', background: 'var(--accent-secondary)', transition: 'width 1s ease-out' }}></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })()}
+                  );
+                })()
+              ) : null}
             </div>
           </div>
         </div>
