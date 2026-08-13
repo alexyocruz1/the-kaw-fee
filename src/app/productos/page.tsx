@@ -13,6 +13,7 @@ type Settings = { laborRatePerHour: number; electricityCostPerKwh: number; gasCo
 
 type ProductIngredient = { ingredientId: string; quantity: number; unit: string; };
 type ProductEquipment = { equipmentId: string; minutesUsed: number; };
+type ConversionCategory = 'mass' | 'volume';
 
 type Product = {
   id: string;
@@ -22,15 +23,16 @@ type Product = {
   prepTimeMinutes: number;
   customMarginMultiplier?: number;
   yield?: number;
+  recipeSteps?: string[];
 };
 
 // Auto Conversion engine
-const CONVERSIONS: any = {
+const CONVERSIONS: Record<ConversionCategory, Record<string, number>> = {
   mass: { kg: 1000, gramo: 1, lb: 453.592, oz: 28.3495, mg: 0.001 },
   volume: { litro: 1000, ml: 1, galon: 3785.41, taza: 236.588, cucharada: 14.7868, cucharadita: 4.92892, 'fl oz': 29.5735 }
 };
 
-const getCategory = (unit: string) => {
+const getCategory = (unit: string): ConversionCategory | null => {
   if (unit in CONVERSIONS.mass) return 'mass';
   if (unit in CONVERSIONS.volume) return 'volume';
   return null;
@@ -90,6 +92,7 @@ export default function ProductosPage() {
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
   const [insightsProduct, setInsightsProduct] = useState<Product | null>(null);
   const [ingredientsProduct, setIngredientsProduct] = useState<Product | null>(null);
+  const [productDetailsTab, setProductDetailsTab] = useState<'ingredients' | 'recipe'>('ingredients');
   const [isBatch, setIsBatch] = useState(false);
   const [batchYield, setBatchYield] = useState(0);
   const [formProduct, setFormProduct] = useState<Omit<Product, 'id'>>({
@@ -97,16 +100,8 @@ export default function ProductosPage() {
     ingredients: [],
     equipmentUsage: [],
     prepTimeMinutes: 0,
-    // yield will be set via effect when batch mode changes
+    recipeSteps: [],
   });
-
-  // Sync batch fields to formProduct
-  useEffect(() => {
-    setFormProduct(prev => ({
-      ...prev,
-      yield: isBatch ? (batchYield || undefined) : undefined,
-    }));
-  }, [isBatch, batchYield]);
 
   const [search, setSearch] = useState('');
   
@@ -137,6 +132,7 @@ export default function ProductosPage() {
       ...formProduct,
       ingredients: formProduct.ingredients.map(i => ({ ...i, quantity: Number(i.quantity) || 0 })),
       equipmentUsage: formProduct.equipmentUsage.map(eq => ({ ...eq, minutesUsed: Number(eq.minutesUsed) || 0 })),
+      recipeSteps: (formProduct.recipeSteps || []).map(step => step.trim()).filter(Boolean),
       yield: isBatch ? (batchYield || 0) : undefined
     };
 
@@ -153,7 +149,7 @@ export default function ProductosPage() {
       }
     } else {
       const prod: Product = {
-        id: `prod_${Date.now()}`,
+        id: `prod_${crypto.randomUUID()}`,
         ...finalProduct
       };
       const res = await fetch('/api/products', {
@@ -174,6 +170,7 @@ export default function ProductosPage() {
       ingredients: [],
       equipmentUsage: [],
       prepTimeMinutes: 0,
+      recipeSteps: [],
       yield: isBatch ? batchYield || undefined : undefined,
     });
     setIsBatch(false);
@@ -190,7 +187,8 @@ export default function ProductosPage() {
       equipmentUsage: [...prod.equipmentUsage],
       prepTimeMinutes: prod.prepTimeMinutes,
       customMarginMultiplier: prod.customMarginMultiplier,
-      yield: prod.yield
+      yield: prod.yield,
+      recipeSteps: [...(prod.recipeSteps || [])]
     });
     setIsBatch(!!prod.yield);
     setBatchYield(prod.yield || 0);
@@ -218,7 +216,7 @@ export default function ProductosPage() {
     });
   };
 
-  const updateIngredient = (ingredientId: string, field: 'quantity' | 'unit', value: any) => {
+  const updateIngredient = (ingredientId: string, field: 'quantity' | 'unit', value: string) => {
     setFormProduct({
       ...formProduct,
       ingredients: formProduct.ingredients.map(i => i.ingredientId === ingredientId ? { ...i, [field]: value } : i)
@@ -253,6 +251,38 @@ export default function ProductosPage() {
     setFormProduct({
       ...formProduct,
       equipmentUsage: formProduct.equipmentUsage.filter(e => e.equipmentId !== equipmentId)
+    });
+  };
+
+  const addRecipeStep = () => {
+    setFormProduct({
+      ...formProduct,
+      recipeSteps: [...(formProduct.recipeSteps || []), '']
+    });
+  };
+
+  const updateRecipeStep = (index: number, value: string) => {
+    setFormProduct({
+      ...formProduct,
+      recipeSteps: (formProduct.recipeSteps || []).map((step, stepIndex) => stepIndex === index ? value : step)
+    });
+  };
+
+  const removeRecipeStep = (index: number) => {
+    setFormProduct({
+      ...formProduct,
+      recipeSteps: (formProduct.recipeSteps || []).filter((_, stepIndex) => stepIndex !== index)
+    });
+  };
+
+  const moveRecipeStep = (index: number, direction: -1 | 1) => {
+    const steps = [...(formProduct.recipeSteps || [])];
+    const targetIndex = index + direction;
+    if (targetIndex < 0 || targetIndex >= steps.length) return;
+    [steps[index], steps[targetIndex]] = [steps[targetIndex], steps[index]];
+    setFormProduct({
+      ...formProduct,
+      recipeSteps: steps
     });
   };
 
@@ -321,6 +351,11 @@ export default function ProductosPage() {
     const totalCost = calculateTotalCost(p);
     const margin = p.customMarginMultiplier || settings.globalMarginMultiplier;
     return totalCost * margin;
+  };
+
+  const openProductDetails = (prod: Product, tab: 'ingredients' | 'recipe' = 'ingredients') => {
+    setIngredientsProduct(prod);
+    setProductDetailsTab(tab);
   };
 
   const getAvailableUnitsForIngredient = (ing: Ingredient) => {
@@ -482,13 +517,52 @@ export default function ProductosPage() {
                   <div key={item.equipmentId} className="ingredient-row" style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem', padding: '0.5rem', background: 'white', borderRadius: 'var(--border-radius-sm)', border: '1px solid var(--border-color)' }}>
                     <span style={{ flex: 1, fontWeight: 500 }}>{eq.name}</span>
                     <span style={{ color: 'var(--text-secondary)' }}>Minutos:</span>
-                    <input type="number" className="form-input" style={{ width: '100px', padding: '0.5rem' }} value={item.minutesUsed} onChange={e => updateEquipmentMinutes(item.equipmentId, e.target.value as any)} step="any" />
+                    <input type="number" className="form-input" style={{ width: '100px', padding: '0.5rem' }} value={item.minutesUsed} onChange={e => updateEquipmentMinutes(item.equipmentId, parseFloat(e.target.value) || 0)} step="any" />
                     <span style={{ width: '100px', textAlign: 'right', fontWeight: 600 }}>${getEquipmentCost(item.equipmentId, item.minutesUsed).toFixed(2)}</span>
                     <button type="button" onClick={() => removeEquipment(item.equipmentId)} style={{ color: 'red', background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem' }}>X</button>
                   </div>
                 );
               })}
               {formProduct.equipmentUsage.length === 0 && <p style={{ color: 'var(--text-secondary)', textAlign: 'center' }}>No has agregado equipos.</p>}
+            </div>
+
+            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>5. Pasos de Preparación</h4>
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.4)', padding: '1.5rem', borderRadius: 'var(--border-radius-sm)', marginBottom: '2rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.9rem' }}>Guarda el método para preparar este producto, paso por paso.</p>
+                <button type="button" className="btn btn-outline" onClick={addRecipeStep} style={{ whiteSpace: 'nowrap' }}>
+                  + Paso
+                </button>
+              </div>
+
+              {(formProduct.recipeSteps || []).length > 0 ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {(formProduct.recipeSteps || []).map((step, index) => (
+                    <div key={index} style={{ display: 'grid', gridTemplateColumns: '36px 1fr auto', gap: '0.75rem', alignItems: 'start', padding: '0.75rem', background: 'white', borderRadius: 'var(--border-radius-sm)', border: '1px solid var(--border-color)' }}>
+                      <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'var(--color-carbon)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>
+                        {index + 1}
+                      </div>
+                      <textarea
+                        className="form-input"
+                        value={step}
+                        onChange={e => updateRecipeStep(index, e.target.value)}
+                        placeholder="Ej. Mezclar los ingredientes secos hasta integrar."
+                        rows={2}
+                        style={{ resize: 'vertical', minHeight: '52px' }}
+                      />
+                      <div style={{ display: 'flex', gap: '0.35rem' }}>
+                        <button type="button" onClick={() => moveRecipeStep(index, -1)} disabled={index === 0} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '50%', width: '32px', height: '32px', cursor: index === 0 ? 'not-allowed' : 'pointer', opacity: index === 0 ? 0.4 : 1 }}>↑</button>
+                        <button type="button" onClick={() => moveRecipeStep(index, 1)} disabled={index === (formProduct.recipeSteps || []).length - 1} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '50%', width: '32px', height: '32px', cursor: index === (formProduct.recipeSteps || []).length - 1 ? 'not-allowed' : 'pointer', opacity: index === (formProduct.recipeSteps || []).length - 1 ? 0.4 : 1 }}>↓</button>
+                        <button type="button" onClick={() => removeRecipeStep(index)} style={{ color: 'red', background: 'none', border: 'none', cursor: 'pointer', padding: '0.4rem' }}>X</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ textAlign: 'center', padding: '1.5rem', color: 'var(--text-secondary)', background: 'white', borderRadius: 'var(--border-radius-sm)', border: '1px dashed var(--border-color)' }}>
+                  No has agregado pasos de preparación.
+                </div>
+              )}
             </div>
 
             <div className="product-summary" style={{ background: 'var(--color-carbon)', color: 'white', padding: '2rem', borderRadius: 'var(--border-radius-md)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -561,6 +635,7 @@ export default function ProductosPage() {
               <span className="badge badge-auto">🧠 {prod.ingredients.length} ingrediente{prod.ingredients.length !== 1 ? 's' : ''}</span>
               <span className="badge badge-auto" style={{ marginTop: '4px' }}>⏱️ {prod.prepTimeMinutes} min preparación</span>
               {prod.equipmentUsage.length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>⚡ {prod.equipmentUsage.length} equipo{prod.equipmentUsage.length !== 1 ? 's' : ''}</span>}
+              {(prod.recipeSteps || []).length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>📝 {(prod.recipeSteps || []).length} paso{(prod.recipeSteps || []).length !== 1 ? 's' : ''}</span>}
               {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍪 {prod.yield} porción{prod.yield !== 1 ? 'es' : ''} por lote</span> : null}
             </div>
 
@@ -595,7 +670,7 @@ export default function ProductosPage() {
                 <button 
                   className="btn btn-outline" 
                   style={{ flex: 1 }}
-                  onClick={() => setIngredientsProduct(prod)}
+                  onClick={() => openProductDetails(prod)}
                 >
                   📋 Ver Ingredientes
                 </button>
@@ -738,33 +813,104 @@ export default function ProductosPage() {
         </div>
       )}
 
-      {/* Ingredients Modal */}
+      {/* Product Details Modal */}
       {ingredientsProduct && (
         <div style={{ position: 'fixed', inset: 0, height: '100vh', background: 'rgba(36, 27, 20, 0.7)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1rem' }} onClick={() => setIngredientsProduct(null)}>
-          <div className="glass-panel animate-fade-in" style={{ background: 'var(--bg-main)', padding: '0', width: '100%', maxWidth: '650px', maxHeight: 'calc(100vh - 4rem)', overflowY: 'auto', margin: 'auto', position: 'relative', borderRadius: 'var(--border-radius-md)', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }} onClick={e => e.stopPropagation()}>
+          <div className="glass-panel animate-fade-in" style={{ background: 'var(--bg-main)', padding: '0', width: '100%', maxWidth: '760px', maxHeight: 'calc(100vh - 4rem)', overflowY: 'auto', margin: 'auto', position: 'relative', borderRadius: 'var(--border-radius-md)', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }} onClick={e => e.stopPropagation()}>
             {/* Header */}
-            <div style={{ position: 'sticky', top: 0, background: 'rgba(251, 246, 234, 0.95)', backdropFilter: 'blur(10px)', padding: '1.5rem 2rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', zIndex: 10 }}>
-              <div>
-                <h2 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--text-primary)' }}>{ingredientsProduct.name}</h2>
-                <p style={{ color: 'var(--text-secondary)', margin: '0.25rem 0 0 0', fontSize: '0.9rem' }}>Ingredientes y Costos</p>
+            <div style={{ position: 'sticky', top: 0, background: 'rgba(251, 246, 234, 0.96)', backdropFilter: 'blur(10px)', padding: '1.5rem 2rem 1rem', borderBottom: '1px solid var(--border-color)', zIndex: 10 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem' }}>
+                <div>
+                  <h2 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--text-primary)' }}>{ingredientsProduct.name}</h2>
+                  <p style={{ color: 'var(--text-secondary)', margin: '0.25rem 0 0 0', fontSize: '0.9rem' }}>Detalles de producto</p>
+                </div>
+                <button onClick={() => setIngredientsProduct(null)} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-secondary)', transition: 'var(--transition)', flex: '0 0 auto' }} className="close-btn-hover">
+                  ✕
+                </button>
               </div>
-              <button onClick={() => setIngredientsProduct(null)} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-secondary)', transition: 'var(--transition)' }} className="close-btn-hover">
-                ✕
-              </button>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem', marginTop: '1.25rem' }}>
+                <div style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '0.85rem 1rem' }}>
+                  <p style={{ margin: '0 0 0.25rem', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Costo ingredientes</p>
+                  <strong style={{ fontSize: '1.2rem', color: 'var(--accent-primary)' }}>${ingredientsProduct.ingredients.reduce((sum, item) => sum + getIngredientCost(item.ingredientId, item.quantity, item.unit), 0).toFixed(2)}</strong>
+                </div>
+                <div style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '0.85rem 1rem' }}>
+                  <p style={{ margin: '0 0 0.25rem', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Ingredientes</p>
+                  <strong style={{ fontSize: '1.2rem', color: 'var(--text-primary)' }}>{ingredientsProduct.ingredients.length}</strong>
+                </div>
+                <div style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '0.85rem 1rem' }}>
+                  <p style={{ margin: '0 0 0.25rem', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Pasos receta</p>
+                  <strong style={{ fontSize: '1.2rem', color: 'var(--text-primary)' }}>{(ingredientsProduct.recipeSteps || []).length}</strong>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', background: 'rgba(255,255,255,0.55)', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '0.35rem' }}>
+                <button
+                  type="button"
+                  onClick={() => setProductDetailsTab('ingredients')}
+                  style={{ flex: 1, padding: '0.75rem 1rem', borderRadius: 'var(--border-radius-sm)', border: 'none', cursor: 'pointer', background: productDetailsTab === 'ingredients' ? 'var(--color-carbon)' : 'transparent', color: productDetailsTab === 'ingredients' ? 'white' : 'var(--text-primary)', fontWeight: 700 }}
+                >
+                  Ingredientes
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setProductDetailsTab('recipe')}
+                  style={{ flex: 1, padding: '0.75rem 1rem', borderRadius: 'var(--border-radius-sm)', border: 'none', cursor: 'pointer', background: productDetailsTab === 'recipe' ? 'var(--color-carbon)' : 'transparent', color: productDetailsTab === 'recipe' ? 'white' : 'var(--text-primary)', fontWeight: 700 }}
+                >
+                  Receta
+                </button>
+              </div>
             </div>
             <div style={{ padding: '2rem' }}>
-              {ingredientsProduct.ingredients.length > 0 ? (
-                ingredientsProduct.ingredients.map(i => {
-                  const ing = ingredientsList.find(i2 => i2.id === i.ingredientId);
-                  const cost = getIngredientCost(i.ingredientId, i.quantity, i.unit);
-                  return (
-                    <div key={i.ingredientId} style={{ marginBottom: '1rem', padding: '1rem', borderBottom: '1px solid var(--border-color)' }}>
-                      <strong>{ing?.name || 'Ingrediente'}:</strong> ${cost.toFixed(2)}
-                    </div>
-                  );
-                })
+              {productDetailsTab === 'ingredients' ? (
+                ingredientsProduct.ingredients.length > 0 ? (
+                  (() => {
+                    const ingredientTotal = ingredientsProduct.ingredients.reduce((sum, item) => sum + getIngredientCost(item.ingredientId, item.quantity, item.unit), 0);
+                    return (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                        {ingredientsProduct.ingredients.map(i => {
+                          const ing = ingredientsList.find(i2 => i2.id === i.ingredientId);
+                          const cost = getIngredientCost(i.ingredientId, i.quantity, i.unit);
+                          const percentage = ingredientTotal ? (cost / ingredientTotal) * 100 : 0;
+                          return (
+                            <div key={i.ingredientId} style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '1rem', display: 'grid', gridTemplateColumns: '1fr auto', gap: '1rem', alignItems: 'center' }}>
+                              <div>
+                                <strong style={{ display: 'block', fontSize: '1rem', color: 'var(--text-primary)', marginBottom: '0.25rem' }}>{ing?.name || 'Ingrediente'}</strong>
+                                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{i.quantity} {i.unit || ing?.unit || ''}</span>
+                                <div style={{ height: '8px', background: 'rgba(0,0,0,0.06)', borderRadius: '999px', overflow: 'hidden', marginTop: '0.75rem' }}>
+                                  <div style={{ width: `${percentage}%`, height: '100%', background: 'var(--accent-primary)' }} />
+                                </div>
+                              </div>
+                              <div style={{ textAlign: 'right' }}>
+                                <strong style={{ display: 'block', fontSize: '1.15rem', color: 'var(--text-primary)' }}>${cost.toFixed(2)}</strong>
+                                <span style={{ color: 'var(--text-secondary)', fontSize: '0.82rem' }}>{percentage.toFixed(1)}%</span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()
+                ) : (
+                  <div style={{ textAlign: 'center', padding: '2rem', background: 'white', border: '1px dashed var(--border-color)', borderRadius: 'var(--border-radius-sm)', color: 'var(--text-secondary)' }}>
+                    No hay ingredientes registrados para este producto.
+                  </div>
+                )
               ) : (
-                <p>No hay ingredientes.</p>
+                (ingredientsProduct.recipeSteps || []).length > 0 ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {(ingredientsProduct.recipeSteps || []).map((step, index) => (
+                      <div key={`${index}-${step}`} style={{ display: 'grid', gridTemplateColumns: '42px 1fr', gap: '1rem', alignItems: 'start', background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '1rem' }}>
+                        <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: 'var(--accent-secondary)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800 }}>
+                          {index + 1}
+                        </div>
+                        <p style={{ margin: 0, lineHeight: 1.55, color: 'var(--text-primary)' }}>{step}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ textAlign: 'center', padding: '2rem', background: 'white', border: '1px dashed var(--border-color)', borderRadius: 'var(--border-radius-sm)', color: 'var(--text-secondary)' }}>
+                    No hay pasos de preparación registrados para este producto.
+                  </div>
+                )
               )}
             </div>
           </div>
