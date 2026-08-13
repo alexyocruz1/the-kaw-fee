@@ -89,6 +89,7 @@ export default function ProductosPage() {
   const [isAdding, setIsAdding] = useState(false);
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
   const [insightsProduct, setInsightsProduct] = useState<Product | null>(null);
+  const [ingredientsProduct, setIngredientsProduct] = useState<Product | null>(null);
   const [isBatch, setIsBatch] = useState(false);
   const [batchYield, setBatchYield] = useState(0);
   const [formProduct, setFormProduct] = useState<Omit<Product, 'id'>>({
@@ -574,18 +575,31 @@ export default function ProductosPage() {
                   <strong>${(calculateTotalCost(prod) / prod.yield).toFixed(2)}</strong>
                 </div>
               ) : null}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
                 <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{prod.yield ? 'Precio por porción:' : 'Precio Sugerido:'}</span>
                 <span style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--accent-primary)' }}>${(calculateSuggestedPrice(prod) / (prod.yield || 1)).toFixed(2)}</span>
               </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Ganancia (${prod.yield ? 'porción' : 'total'}):</span>
+                <strong style={{ color: 'var(--accent-secondary)', fontSize: '1.2rem' }}>${((calculateSuggestedPrice(prod) - calculateTotalCost(prod)) / (prod.yield || 1)).toFixed(2)}</strong>
+              </div>
               
-              <button 
-                className="btn btn-outline" 
-                style={{ width: '100%', marginTop: '1.5rem' }}
-                onClick={() => setInsightsProduct(prod)}
-              >
-                📊 Ver Estadísticas
-              </button>
+              <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.5rem' }}>
+                <button 
+                  className="btn btn-outline" 
+                  style={{ flex: 1 }}
+                  onClick={() => setInsightsProduct(prod)}
+                >
+                  📊 Ver Estadísticas
+                </button>
+                <button 
+                  className="btn btn-outline" 
+                  style={{ flex: 1 }}
+                  onClick={() => setIngredientsProduct(prod)}
+                >
+                  📋 Ver Ingredientes
+                </button>
+              </div>
             </div>
           </div>
         ))}
@@ -617,7 +631,7 @@ export default function ProductosPage() {
             </div>
             
             <div style={{ padding: '2rem' }}>
-              {insightsProduct ? (
+              {insightsProduct && (
                 (() => {
                   const breakdown = calculateBreakdown(insightsProduct);
                   const totalCost = calculateTotalCost(insightsProduct);
@@ -718,7 +732,40 @@ export default function ProductosPage() {
                     </div>
                   );
                 })()
-              ) : null}
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Ingredients Modal */}
+      {ingredientsProduct && (
+        <div style={{ position: 'fixed', inset: 0, height: '100vh', background: 'rgba(36, 27, 20, 0.7)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1rem' }} onClick={() => setIngredientsProduct(null)}>
+          <div className="glass-panel animate-fade-in" style={{ background: 'var(--bg-main)', padding: '0', width: '100%', maxWidth: '650px', maxHeight: 'calc(100vh - 4rem)', overflowY: 'auto', margin: 'auto', position: 'relative', borderRadius: 'var(--border-radius-md)', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }} onClick={e => e.stopPropagation()}>
+            {/* Header */}
+            <div style={{ position: 'sticky', top: 0, background: 'rgba(251, 246, 234, 0.95)', backdropFilter: 'blur(10px)', padding: '1.5rem 2rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', zIndex: 10 }}>
+              <div>
+                <h2 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--text-primary)' }}>{ingredientsProduct.name}</h2>
+                <p style={{ color: 'var(--text-secondary)', margin: '0.25rem 0 0 0', fontSize: '0.9rem' }}>Ingredientes y Costos</p>
+              </div>
+              <button onClick={() => setIngredientsProduct(null)} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-secondary)', transition: 'var(--transition)' }} className="close-btn-hover">
+                ✕
+              </button>
+            </div>
+            <div style={{ padding: '2rem' }}>
+              {ingredientsProduct.ingredients.length > 0 ? (
+                ingredientsProduct.ingredients.map(i => {
+                  const ing = ingredientsList.find(i2 => i2.id === i.ingredientId);
+                  const cost = getIngredientCost(i.ingredientId, i.quantity, i.unit);
+                  return (
+                    <div key={i.ingredientId} style={{ marginBottom: '1rem', padding: '1rem', borderBottom: '1px solid var(--border-color)' }}>
+                      <strong>{ing?.name || 'Ingrediente'}:</strong> ${cost.toFixed(2)}
+                    </div>
+                  );
+                })
+              ) : (
+                <p>No hay ingredientes.</p>
+              )}
             </div>
           </div>
         </div>

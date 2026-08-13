@@ -45,6 +45,7 @@
       }
     ],
     "equipmentUsage": [],
-    "prepTimeMinutes": 0
+    "prepTimeMinutes": 0,
+    "yield": 9
   }
 ]
