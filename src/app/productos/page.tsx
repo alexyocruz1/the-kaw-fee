@@ -24,6 +24,7 @@ type Product = {
   customMarginMultiplier?: number;
   yield?: number;
   recipeSteps?: string[];
+  salePrice?: number;
 };
 
 // Auto Conversion engine
@@ -133,6 +134,7 @@ export default function ProductosPage() {
       ingredients: formProduct.ingredients.map(i => ({ ...i, quantity: Number(i.quantity) || 0 })),
       equipmentUsage: formProduct.equipmentUsage.map(eq => ({ ...eq, minutesUsed: Number(eq.minutesUsed) || 0 })),
       recipeSteps: (formProduct.recipeSteps || []).map(step => step.trim()).filter(Boolean),
+      salePrice: formProduct.salePrice && formProduct.salePrice > 0 ? Number(formProduct.salePrice) : undefined,
       yield: isBatch ? (batchYield || 0) : undefined
     };
 
@@ -171,6 +173,7 @@ export default function ProductosPage() {
       equipmentUsage: [],
       prepTimeMinutes: 0,
       recipeSteps: [],
+      salePrice: undefined,
       yield: isBatch ? batchYield || undefined : undefined,
     });
     setIsBatch(false);
@@ -188,7 +191,8 @@ export default function ProductosPage() {
       prepTimeMinutes: prod.prepTimeMinutes,
       customMarginMultiplier: prod.customMarginMultiplier,
       yield: prod.yield,
-      recipeSteps: [...(prod.recipeSteps || [])]
+      recipeSteps: [...(prod.recipeSteps || [])],
+      salePrice: prod.salePrice
     });
     setIsBatch(!!prod.yield);
     setBatchYield(prod.yield || 0);
@@ -353,6 +357,48 @@ export default function ProductosPage() {
     return totalCost * margin;
   };
 
+  const getUnitCount = (p: Omit<Product, 'id'>) => p.yield && p.yield > 0 ? p.yield : 1;
+
+  const calculateUnitCost = (p: Omit<Product, 'id'>) => calculateTotalCost(p) / getUnitCount(p);
+
+  const calculateSuggestedUnitPrice = (p: Omit<Product, 'id'>) => calculateSuggestedPrice(p) / getUnitCount(p);
+
+  const calculateActualUnitPrice = (p: Omit<Product, 'id'>) => p.salePrice && p.salePrice > 0 ? p.salePrice : calculateSuggestedUnitPrice(p);
+
+  const calculateActualTotalRevenue = (p: Omit<Product, 'id'>) => calculateActualUnitPrice(p) * getUnitCount(p);
+
+  const calculateActualProfit = (p: Omit<Product, 'id'>) => calculateActualTotalRevenue(p) - calculateTotalCost(p);
+
+  const calculateActualMarginPct = (p: Omit<Product, 'id'>) => {
+    const revenue = calculateActualTotalRevenue(p);
+    return revenue > 0 ? (calculateActualProfit(p) / revenue) * 100 : 0;
+  };
+
+  const getPriceAdvice = (p: Omit<Product, 'id'>) => {
+    const unitCost = calculateUnitCost(p);
+    const unitPrice = calculateActualUnitPrice(p);
+    const marginPct = calculateActualMarginPct(p);
+    const usesManualPrice = !!(p.salePrice && p.salePrice > 0);
+
+    if (!unitPrice) {
+      return { label: 'Sin precio', message: 'Agrega costos o un precio de venta para evaluar la rentabilidad.', color: 'var(--text-secondary)', icon: '💡' };
+    }
+
+    if (unitPrice <= unitCost) {
+      return { label: 'Precio bajo costo', message: `Este precio queda por debajo del costo ${p.yield ? 'por pieza' : 'del producto'}. Necesitas subirlo para no vender con pérdida.`, color: '#e53e3e', icon: '⚠️' };
+    }
+
+    if (marginPct < 45) {
+      return { label: 'Margen apretado', message: `El margen queda en ${marginPct.toFixed(1)}%. Funciona, pero hay poco espacio para mermas, descuentos o cambios de proveedor.`, color: '#d97706', icon: '⚖️' };
+    }
+
+    if (marginPct > 80) {
+      return { label: 'Margen alto', message: `El margen queda en ${marginPct.toFixed(1)}%. Es muy rentable; valida que el mercado acepte este precio.`, color: 'var(--accent-primary)', icon: '📈' };
+    }
+
+    return { label: usesManualPrice ? 'Precio saludable' : 'Sugerencia saludable', message: `El margen queda en ${marginPct.toFixed(1)}%. El precio mantiene una rentabilidad equilibrada.`, color: 'var(--accent-secondary)', icon: '✅' };
+  };
+
   const openProductDetails = (prod: Product, tab: 'ingredients' | 'recipe' = 'ingredients') => {
     setIngredientsProduct(prod);
     setProductDetailsTab(tab);
@@ -452,12 +498,36 @@ export default function ProductosPage() {
               </div>
 
               <div>
-                <h4 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>2. Estrategia de Margen</h4>
+                <h4 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>2. Precio y Margen</h4>
                 <div className="form-group">
                   <label className="form-label">Multiplicador Personalizado (Opcional)</label>
                   <input type="number" className="form-input" value={formProduct.customMarginMultiplier || ''} placeholder={`Global actual: ${settings.globalMarginMultiplier}`} onChange={e => setFormProduct({...formProduct, customMarginMultiplier: parseFloat(e.target.value) || undefined})} step="0.1" />
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Déjalo en blanco para usar la configuración global.</p>
                 </div>
+                <div className="form-group">
+                  <label className="form-label">{isBatch ? 'Precio de venta por pieza (Opcional)' : 'Precio de venta manual (Opcional)'}</label>
+                  <input
+                    type="number"
+                    className="form-input"
+                    value={formProduct.salePrice || ''}
+                    placeholder={`Sugerido: $${calculateSuggestedUnitPrice(formProduct).toFixed(2)}`}
+                    onChange={e => setFormProduct({...formProduct, salePrice: parseFloat(e.target.value) || undefined})}
+                    step="0.01"
+                    min={0}
+                  />
+                  <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+                    Si lo dejas vacío, se usará el precio sugerido automáticamente.
+                  </p>
+                </div>
+                {(() => {
+                  const advice = getPriceAdvice(formProduct);
+                  return (
+                    <div style={{ marginTop: '1rem', padding: '1rem', background: 'white', border: `1px solid ${advice.color}`, borderRadius: 'var(--border-radius-sm)' }}>
+                      <strong style={{ display: 'block', color: advice.color, marginBottom: '0.35rem' }}>{advice.icon} {advice.label}</strong>
+                      <p style={{ margin: 0, color: 'var(--text-primary)', fontSize: '0.9rem', lineHeight: 1.45 }}>{advice.message}</p>
+                    </div>
+                  );
+                })()}
               </div>
             </div>
 
@@ -575,20 +645,23 @@ export default function ProductosPage() {
                 </p>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <p style={{ color: 'var(--color-leche)', fontSize: '0.9rem' }}>Precio Sugerido (Venta)</p>
-                <h2 style={{ color: 'var(--accent-primary)', fontSize: '2.5rem', margin: 0 }}>${calculateSuggestedPrice(formProduct).toFixed(2)}</h2>
+                <p style={{ color: 'var(--color-leche)', fontSize: '0.9rem' }}>{isBatch ? 'Precio actual por pieza' : 'Precio actual de venta'}</p>
+                <h2 style={{ color: 'var(--accent-primary)', fontSize: '2.5rem', margin: 0 }}>${calculateActualUnitPrice(formProduct).toFixed(2)}</h2>
+                <p style={{ color: '#bbb', fontSize: '0.85rem', margin: '0.35rem 0 0' }}>Sugerido: ${calculateSuggestedUnitPrice(formProduct).toFixed(2)}</p>
               </div>
             </div>
 
             {isBatch && batchYield > 0 && (
               <div className="product-summary" style={{ background: 'white', border: '2px solid var(--accent-secondary)', color: 'var(--text-primary)', padding: '2rem', borderRadius: 'var(--border-radius-md)', marginTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Costo por porción</p>
+                  <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Lote de {batchYield} pieza{batchYield !== 1 ? 's' : ''}</p>
                   <strong style={{ fontSize: '1.4rem' }}>${(calculateTotalCost(formProduct) / batchYield).toFixed(2)}</strong>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', margin: '0.35rem 0 0' }}>Costo por pieza</p>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Precio por porción (venta)</p>
-                  <h2 style={{ color: 'var(--accent-secondary)', fontSize: '2.5rem', margin: 0 }}>${(calculateSuggestedPrice(formProduct) / batchYield).toFixed(2)}</h2>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Precio actual por pieza</p>
+                  <h2 style={{ color: 'var(--accent-secondary)', fontSize: '2.5rem', margin: 0 }}>${calculateActualUnitPrice(formProduct).toFixed(2)}</h2>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', margin: '0.35rem 0 0' }}>Ingreso lote: ${calculateActualTotalRevenue(formProduct).toFixed(2)}</p>
                 </div>
               </div>
             )}
@@ -621,7 +694,10 @@ export default function ProductosPage() {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '2rem' }}>
-        {products.filter(p => p.name.toLowerCase().includes(search.toLowerCase())).map(prod => (
+        {products.filter(p => p.name.toLowerCase().includes(search.toLowerCase())).map(prod => {
+          const priceAdvice = getPriceAdvice(prod);
+          const unitLabel = prod.yield ? 'pieza' : 'producto';
+          return (
           <div key={prod.id} className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
               <h3 style={{ margin: 0, flex: 1, fontSize: '1.2rem' }}>{prod.name}</h3>
@@ -632,31 +708,40 @@ export default function ProductosPage() {
             </div>
             
             <div style={{ margin: '0.75rem 0', flex: 1, display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+              {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px', background: 'var(--color-carbon)', color: 'white' }}>Lote</span> : null}
               <span className="badge badge-auto">🧠 {prod.ingredients.length} ingrediente{prod.ingredients.length !== 1 ? 's' : ''}</span>
               <span className="badge badge-auto" style={{ marginTop: '4px' }}>⏱️ {prod.prepTimeMinutes} min preparación</span>
               {prod.equipmentUsage.length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>⚡ {prod.equipmentUsage.length} equipo{prod.equipmentUsage.length !== 1 ? 's' : ''}</span>}
               {(prod.recipeSteps || []).length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>📝 {(prod.recipeSteps || []).length} paso{(prod.recipeSteps || []).length !== 1 ? 's' : ''}</span>}
-              {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍪 {prod.yield} porción{prod.yield !== 1 ? 'es' : ''} por lote</span> : null}
+              {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍪 Rinde {prod.yield} pieza{prod.yield !== 1 ? 's' : ''}</span> : null}
             </div>
 
             <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem', marginTop: 'auto' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem', fontSize: '0.9rem' }}>
-                <span style={{ color: 'var(--text-secondary)' }}>Costo Total:</span>
+                <span style={{ color: 'var(--text-secondary)' }}>{prod.yield ? 'Costo lote:' : 'Costo total:'}</span>
                 <strong>${calculateTotalCost(prod).toFixed(2)}</strong>
               </div>
               {prod.yield ? (
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                  <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Costo por porción:</span>
-                  <strong>${(calculateTotalCost(prod) / prod.yield).toFixed(2)}</strong>
+                  <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Costo por pieza:</span>
+                  <strong>${calculateUnitCost(prod).toFixed(2)}</strong>
                 </div>
               ) : null}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{prod.yield ? 'Precio por porción:' : 'Precio Sugerido:'}</span>
-                <span style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--accent-primary)' }}>${(calculateSuggestedPrice(prod) / (prod.yield || 1)).toFixed(2)}</span>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Precio actual por {unitLabel}:</span>
+                <span style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--accent-primary)' }}>${calculateActualUnitPrice(prod).toFixed(2)}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Ganancia (${prod.yield ? 'porción' : 'total'}):</span>
-                <strong style={{ color: 'var(--accent-secondary)', fontSize: '1.2rem' }}>${((calculateSuggestedPrice(prod) - calculateTotalCost(prod)) / (prod.yield || 1)).toFixed(2)}</strong>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Sugerido por {unitLabel}:</span>
+                <strong>${calculateSuggestedUnitPrice(prod).toFixed(2)}</strong>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Ganancia por {unitLabel}:</span>
+                <strong style={{ color: 'var(--accent-secondary)', fontSize: '1.2rem' }}>${(calculateActualProfit(prod) / getUnitCount(prod)).toFixed(2)}</strong>
+              </div>
+              <div style={{ padding: '0.85rem', border: `1px solid ${priceAdvice.color}`, borderRadius: 'var(--border-radius-sm)', background: 'rgba(255,255,255,0.65)', marginTop: '1rem' }}>
+                <strong style={{ color: priceAdvice.color, display: 'block', marginBottom: '0.25rem', fontSize: '0.9rem' }}>{priceAdvice.icon} {priceAdvice.label}</strong>
+                <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.82rem', lineHeight: 1.35 }}>{priceAdvice.message}</p>
               </div>
               
               <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.5rem' }}>
@@ -677,7 +762,8 @@ export default function ProductosPage() {
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
         {products.filter(p => p.name.toLowerCase().includes(search.toLowerCase())).length === 0 && !isAdding && (
           <div style={{ gridColumn: '1 / -1' }}>
             <div className="empty-state">
@@ -710,39 +796,29 @@ export default function ProductosPage() {
                 (() => {
                   const breakdown = calculateBreakdown(insightsProduct);
                   const totalCost = calculateTotalCost(insightsProduct);
-                  const suggestedPrice = calculateSuggestedPrice(insightsProduct);
-                  const profit = suggestedPrice - totalCost;
-                  const foodCostPct = (breakdown.ingsCost / suggestedPrice) * 100 || 0;
-                  const marginPct = (profit / suggestedPrice) * 100 || 0;
-
-                  let recommendation = "";
-                  let recommendationColor = "var(--text-secondary)";
-                  let recommendationIcon = "💡";
-
-                  if (foodCostPct > 35) {
-                    recommendation = "El costo de ingredientes (Food Cost) es mayor al 35%. Estás sacrificando margen. Considera subir el precio de venta, reducir porciones o buscar proveedores más económicos.";
-                    recommendationColor = "#e53e3e"; // Red
-                    recommendationIcon = "⚠️";
-                  } else if (foodCostPct > 0 && foodCostPct <= 25) {
-                    recommendation = "Tienes un margen excelente (Food Cost bajo). Este producto es altamente rentable. ¡Considera hacer campañas de marketing o combos para vender más volumen de este!";
-                    recommendationColor = "var(--accent-secondary)"; // Caribe green
-                    recommendationIcon = "🚀";
-                  } else {
-                    recommendation = "El costo de alimentos está dentro del rango ideal (25% - 35%). Es un producto perfectamente equilibrado. Sigue monitoreando los precios de los ingredientes.";
-                    recommendationColor = "var(--accent-primary)"; // Canela
-                    recommendationIcon = "✅";
-                  }
+                  const suggestedUnitPrice = calculateSuggestedUnitPrice(insightsProduct);
+                  const actualUnitPrice = calculateActualUnitPrice(insightsProduct);
+                  const actualRevenue = calculateActualTotalRevenue(insightsProduct);
+                  const profit = calculateActualProfit(insightsProduct);
+                  const marginPct = calculateActualMarginPct(insightsProduct);
+                  const priceAdvice = getPriceAdvice(insightsProduct);
+                  const unitLabel = insightsProduct.yield ? 'pieza' : 'producto';
 
                   return (
                     <div>
                       {/* Key Metrics */}
                       <div className="responsive-grid-2" style={{ display: 'grid', gap: '1rem', marginBottom: '2.5rem' }} data-cols="1fr 1fr">
                         <div style={{ background: 'var(--color-carbon)', padding: '1.5rem', borderRadius: 'var(--border-radius-sm)', textAlign: 'center', color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                          <p style={{ color: 'var(--color-leche)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Precio Sugerido</p>
-                          <h3 style={{ color: 'var(--accent-primary)', fontSize: '2.5rem', margin: '0' }}>${suggestedPrice.toFixed(2)}</h3>
+                          <p style={{ color: 'var(--color-leche)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Precio actual por {unitLabel}</p>
+                          <h3 style={{ color: 'var(--accent-primary)', fontSize: '2.5rem', margin: '0' }}>${actualUnitPrice.toFixed(2)}</h3>
+                          <p style={{ color: '#bbb', fontSize: '0.85rem', margin: '0.35rem 0 0' }}>Sugerido: ${suggestedUnitPrice.toFixed(2)}</p>
                         </div>
                         
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                          <div style={{ background: 'white', padding: '1rem 1.5rem', borderRadius: 'var(--border-radius-sm)', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{insightsProduct.yield ? 'Ingreso por lote' : 'Ingreso por venta'}</span>
+                            <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>${actualRevenue.toFixed(2)}</span>
+                          </div>
                           <div style={{ background: 'white', padding: '1rem 1.5rem', borderRadius: 'var(--border-radius-sm)', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Ganancia Neta</span>
                             <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>${profit.toFixed(2)}</span>
@@ -755,12 +831,12 @@ export default function ProductosPage() {
                       </div>
 
                       {/* AI Insights Box */}
-                      <div style={{ padding: '1.5rem', background: 'rgba(255, 255, 255, 0.8)', border: `2px solid ${recommendationColor}`, borderRadius: 'var(--border-radius-md)', marginBottom: '2.5rem', display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-                        <div style={{ fontSize: '2rem', lineHeight: 1 }}>{recommendationIcon}</div>
+                      <div style={{ padding: '1.5rem', background: 'rgba(255, 255, 255, 0.8)', border: `2px solid ${priceAdvice.color}`, borderRadius: 'var(--border-radius-md)', marginBottom: '2.5rem', display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
+                        <div style={{ fontSize: '2rem', lineHeight: 1 }}>{priceAdvice.icon}</div>
                         <div>
-                          <h4 style={{ margin: '0 0 0.5rem 0', color: recommendationColor, fontSize: '1rem' }}>Socio de Negocios</h4>
+                          <h4 style={{ margin: '0 0 0.5rem 0', color: priceAdvice.color, fontSize: '1rem' }}>{priceAdvice.label}</h4>
                           <p style={{ fontSize: '0.95rem', lineHeight: 1.5, color: 'var(--text-primary)', margin: 0 }}>
-                            {recommendation}
+                            {priceAdvice.message}
                           </p>
                         </div>
                       </div>
@@ -822,13 +898,19 @@ export default function ProductosPage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem' }}>
                 <div>
                   <h2 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--text-primary)' }}>{ingredientsProduct.name}</h2>
-                  <p style={{ color: 'var(--text-secondary)', margin: '0.25rem 0 0 0', fontSize: '0.9rem' }}>Detalles de producto</p>
+                  <p style={{ color: 'var(--text-secondary)', margin: '0.25rem 0 0 0', fontSize: '0.9rem' }}>
+                    {ingredientsProduct.yield ? `Lote de ${ingredientsProduct.yield} pieza${ingredientsProduct.yield !== 1 ? 's' : ''}` : 'Detalles de producto'}
+                  </p>
                 </div>
                 <button onClick={() => setIngredientsProduct(null)} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-secondary)', transition: 'var(--transition)', flex: '0 0 auto' }} className="close-btn-hover">
                   ✕
                 </button>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem', marginTop: '1.25rem' }}>
+                <div style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '0.85rem 1rem' }}>
+                  <p style={{ margin: '0 0 0.25rem', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Precio actual</p>
+                  <strong style={{ fontSize: '1.2rem', color: 'var(--accent-secondary)' }}>${calculateActualUnitPrice(ingredientsProduct).toFixed(2)}</strong>
+                </div>
                 <div style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '0.85rem 1rem' }}>
                   <p style={{ margin: '0 0 0.25rem', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Costo ingredientes</p>
                   <strong style={{ fontSize: '1.2rem', color: 'var(--accent-primary)' }}>${ingredientsProduct.ingredients.reduce((sum, item) => sum + getIngredientCost(item.ingredientId, item.quantity, item.unit), 0).toFixed(2)}</strong>
