@@ -14,6 +14,7 @@ type Settings = { laborRatePerHour: number; electricityCostPerKwh: number; gasCo
 type ProductIngredient = { ingredientId: string; quantity: number; unit: string; };
 type ProductEquipment = { equipmentId: string; minutesUsed: number; };
 type ConversionCategory = 'mass' | 'volume';
+type ProductImage = { id: string; url: string; name?: string; isPrimary?: boolean; };
 
 type Product = {
   id: string;
@@ -25,6 +26,7 @@ type Product = {
   yield?: number;
   recipeSteps?: string[];
   salePrice?: number;
+  images?: ProductImage[];
 };
 
 // Auto Conversion engine
@@ -102,6 +104,7 @@ export default function ProductosPage() {
     equipmentUsage: [],
     prepTimeMinutes: 0,
     recipeSteps: [],
+    images: [],
   });
 
   const [search, setSearch] = useState('');
@@ -134,6 +137,7 @@ export default function ProductosPage() {
       ingredients: formProduct.ingredients.map(i => ({ ...i, quantity: Number(i.quantity) || 0 })),
       equipmentUsage: formProduct.equipmentUsage.map(eq => ({ ...eq, minutesUsed: Number(eq.minutesUsed) || 0 })),
       recipeSteps: (formProduct.recipeSteps || []).map(step => step.trim()).filter(Boolean),
+      images: formProduct.images || [],
       salePrice: formProduct.salePrice && formProduct.salePrice > 0 ? Number(formProduct.salePrice) : undefined,
       yield: isBatch ? (batchYield || 0) : undefined
     };
@@ -173,6 +177,7 @@ export default function ProductosPage() {
       equipmentUsage: [],
       prepTimeMinutes: 0,
       recipeSteps: [],
+      images: [],
       salePrice: undefined,
       yield: isBatch ? batchYield || undefined : undefined,
     });
@@ -192,7 +197,8 @@ export default function ProductosPage() {
       customMarginMultiplier: prod.customMarginMultiplier,
       yield: prod.yield,
       recipeSteps: [...(prod.recipeSteps || [])],
-      salePrice: prod.salePrice
+      salePrice: prod.salePrice,
+      images: [...(prod.images || [])]
     });
     setIsBatch(!!prod.yield);
     setBatchYield(prod.yield || 0);
@@ -287,6 +293,51 @@ export default function ProductosPage() {
     setFormProduct({
       ...formProduct,
       recipeSteps: steps
+    });
+  };
+
+  const handleProductImageUpload = async (file: File) => {
+    const data = new FormData();
+    data.append('file', file);
+    data.append('directory', 'products');
+
+    const res = await fetch('/api/uploads', {
+      method: 'POST',
+      body: data
+    });
+    if (!res.ok) return;
+
+    const uploaded = await res.json();
+    const currentImages = formProduct.images || [];
+    const image: ProductImage = {
+      id: `img_${crypto.randomUUID()}`,
+      url: uploaded.url,
+      name: file.name,
+      isPrimary: currentImages.length === 0
+    };
+
+    setFormProduct({
+      ...formProduct,
+      images: [...currentImages, image]
+    });
+  };
+
+  const setPrimaryProductImage = (imageId: string) => {
+    setFormProduct({
+      ...formProduct,
+      images: (formProduct.images || []).map(image => ({
+        ...image,
+        isPrimary: image.id === imageId
+      }))
+    });
+  };
+
+  const removeProductImage = (imageId: string) => {
+    const remainingImages = (formProduct.images || []).filter(image => image.id !== imageId);
+    const hasPrimary = remainingImages.some(image => image.isPrimary);
+    setFormProduct({
+      ...formProduct,
+      images: hasPrimary ? remainingImages : remainingImages.map((image, index) => ({ ...image, isPrimary: index === 0 }))
     });
   };
 
@@ -483,6 +534,47 @@ export default function ProductosPage() {
                   </>
                 )}
               </div>
+            </div>
+
+            <h4 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>Fotos del Producto</h4>
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.4)', padding: '1.5rem', borderRadius: 'var(--border-radius-sm)', marginBottom: '2rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+                <label className="btn btn-outline" style={{ cursor: 'pointer' }}>
+                  Subir foto
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={e => {
+                      const file = e.target.files?.[0];
+                      if (file) handleProductImageUpload(file);
+                      e.target.value = '';
+                    }}
+                  />
+                </label>
+                <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '0.9rem' }}>Agrega varias fotos para elegirlas luego en Workshop.</p>
+              </div>
+              {(formProduct.images || []).length > 0 ? (
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1rem' }}>
+                  {(formProduct.images || []).map(image => (
+                    <div key={image.id} style={{ background: 'white', border: image.isPrimary ? '2px solid var(--accent-secondary)' : '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', overflow: 'hidden' }}>
+                      <img src={image.url} alt={image.name || 'Foto de producto'} style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', display: 'block' }} />
+                      <div style={{ padding: '0.75rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        <button type="button" className="table-action-btn table-action-edit" onClick={() => setPrimaryProductImage(image.id)}>
+                          {image.isPrimary ? 'Principal' : 'Hacer principal'}
+                        </button>
+                        <button type="button" className="table-action-btn table-action-delete" onClick={() => removeProductImage(image.id)}>
+                          Quitar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ textAlign: 'center', padding: '1.5rem', color: 'var(--text-secondary)', background: 'white', borderRadius: 'var(--border-radius-sm)', border: '1px dashed var(--border-color)' }}>
+                  No has subido fotos para este producto.
+                </div>
+              )}
             </div>
 
             <div className="responsive-grid-2" style={{ display: 'grid', gap: '2rem', marginBottom: '2rem' }} data-cols="1fr 1fr">
@@ -713,6 +805,7 @@ export default function ProductosPage() {
               <span className="badge badge-auto" style={{ marginTop: '4px' }}>⏱️ {prod.prepTimeMinutes} min preparación</span>
               {prod.equipmentUsage.length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>⚡ {prod.equipmentUsage.length} equipo{prod.equipmentUsage.length !== 1 ? 's' : ''}</span>}
               {(prod.recipeSteps || []).length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>📝 {(prod.recipeSteps || []).length} paso{(prod.recipeSteps || []).length !== 1 ? 's' : ''}</span>}
+              {(prod.images || []).length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>🖼️ {(prod.images || []).length} foto{(prod.images || []).length !== 1 ? 's' : ''}</span>}
               {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍪 Rinde {prod.yield} pieza{prod.yield !== 1 ? 's' : ''}</span> : null}
             </div>
 

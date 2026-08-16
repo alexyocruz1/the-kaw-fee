@@ -7,6 +7,8 @@ type Settings = {
   electricityCostPerKwh: number;
   gasCostPerKg?: number;
   globalMarginMultiplier: number;
+  businessName?: string;
+  logoUrl?: string;
 };
 
 export default function ConfiguracionPage() {
@@ -28,7 +30,29 @@ export default function ConfiguracionPage() {
     if (!settings) return;
     setSettings({
       ...settings,
-      [e.target.name]: parseFloat(e.target.value) || 0
+      [e.target.name]: e.target.type === 'number' ? parseFloat(e.target.value) || 0 : e.target.value
+    });
+  };
+
+  const handleLogoUpload = async (file: File) => {
+    if (!settings) return;
+    const data = new FormData();
+    data.append('file', file);
+    data.append('directory', 'brand');
+
+    const res = await fetch('/api/uploads', {
+      method: 'POST',
+      body: data
+    });
+    if (!res.ok) {
+      setMessage('Error al subir el logo.');
+      return;
+    }
+
+    const uploaded = await res.json();
+    setSettings({
+      ...settings,
+      logoUrl: uploaded.url
     });
   };
 
@@ -46,7 +70,7 @@ export default function ConfiguracionPage() {
       } else {
         setMessage('Error al guardar la configuración.');
       }
-    } catch (e) {
+    } catch {
       setMessage('Error de red al guardar.');
     }
     setSaving(false);
@@ -86,6 +110,55 @@ export default function ConfiguracionPage() {
       )}
 
       <div className="glass-panel" style={{ padding: '2.5rem', maxWidth: '600px' }}>
+        <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', marginBottom: '2rem' }}>
+          Identidad del Negocio
+        </h3>
+
+        <div className="form-group">
+          <label className="form-label">Nombre del Negocio</label>
+          <input
+            type="text"
+            name="businessName"
+            value={settings.businessName || 'the kaw-fee'}
+            onChange={handleChange}
+            className="form-input"
+          />
+          <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+            Si no subes logo, este nombre aparecerá en los flyers.
+          </p>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Logo</label>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            {settings.logoUrl ? (
+              <img src={settings.logoUrl} alt="Logo del negocio" style={{ width: '88px', height: '88px', objectFit: 'contain', background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '0.5rem' }} />
+            ) : (
+              <div style={{ width: '88px', height: '88px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'white', border: '1px dashed var(--border-color)', borderRadius: 'var(--border-radius-sm)', color: 'var(--text-secondary)', fontSize: '0.8rem', textAlign: 'center' }}>
+                Sin logo
+              </div>
+            )}
+            <label className="btn btn-outline" style={{ cursor: 'pointer' }}>
+              Subir logo
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={e => {
+                  const file = e.target.files?.[0];
+                  if (file) handleLogoUpload(file);
+                  e.target.value = '';
+                }}
+              />
+            </label>
+            {settings.logoUrl && (
+              <button type="button" className="btn btn-outline" onClick={() => setSettings({ ...settings, logoUrl: undefined })}>
+                Quitar logo
+              </button>
+            )}
+          </div>
+        </div>
+
         <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', marginBottom: '2rem' }}>
           Costos Generales (MXN)
         </h3>

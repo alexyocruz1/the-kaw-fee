@@ -9,26 +9,12 @@ const navItems = [
   { name: 'Ingredientes', path: '/ingredientes', icon: '🥕' },
   { name: 'Equipos', path: '/equipos', icon: '⚡' },
   { name: 'Productos y Precios', path: '/productos', icon: '☕' },
+  { name: 'Workshop', path: '/workshop', icon: '🎨' },
   { name: 'Configuración', path: '/configuracion', icon: '⚙️' },
 ];
 
-export default function Sidebar() {
-  const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
-
-  // Close sidebar on route change
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
-  // Close on ESC
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setIsOpen(false); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
-
-  const NavContent = () => (
+function NavContent({ pathname, onClose }: { pathname: string; onClose: () => void }) {
+  return (
     <>
       <div style={{ marginBottom: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
@@ -37,7 +23,7 @@ export default function Sidebar() {
         </div>
         {/* Close button only visible on mobile */}
         <button
-          onClick={() => setIsOpen(false)}
+          onClick={onClose}
           className="sidebar-close-btn"
           aria-label="Cerrar menú"
         >
@@ -52,6 +38,7 @@ export default function Sidebar() {
             <Link
               key={item.path}
               href={item.path}
+              onClick={onClose}
               className={`btn sidebar-nav-item ${isActive ? 'btn-primary' : 'btn-outline'}`}
               style={{
                 justifyContent: 'flex-start',
@@ -73,6 +60,18 @@ export default function Sidebar() {
       </div>
     </>
   );
+}
+
+export default function Sidebar() {
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Close on ESC
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setIsOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   return (
     <>
@@ -97,12 +96,12 @@ export default function Sidebar() {
 
       {/* Desktop sidebar (always visible) */}
       <aside className="sidebar sidebar-desktop">
-        <NavContent />
+        <NavContent pathname={pathname} onClose={() => setIsOpen(false)} />
       </aside>
 
       {/* Mobile drawer */}
       <aside className={`sidebar sidebar-mobile ${isOpen ? 'sidebar-mobile--open' : ''}`}>
-        <NavContent />
+        <NavContent pathname={pathname} onClose={() => setIsOpen(false)} />
       </aside>
     </>
   );
