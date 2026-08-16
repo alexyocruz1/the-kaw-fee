@@ -5,7 +5,7 @@
     "ingredients": [
       {
         "ingredientId": "ing_1786488765006",
-        "quantity": 10,
+        "quantity": 12,
         "unit": "pieza"
       },
       {
@@ -25,8 +25,8 @@
       },
       {
         "ingredientId": "ing_1786488412834",
-        "quantity": 0.66,
-        "unit": "taza derretida"
+        "quantity": 1,
+        "unit": "pieza"
       },
       {
         "ingredientId": "ing_1786490598989",
@@ -46,6 +46,24 @@
     ],
     "equipmentUsage": [],
     "prepTimeMinutes": 0,
-    "yield": 9
+    "yield": 6,
+    "recipeSteps": [
+      "Partir 12 galletas en 4 partes cada una, partiéndolas a la mitad 2 veces con un cuchillo.\n\nDividir en dos grupos: 8 galletas y 4 galletas.",
+      "En un taza derretir una barra de mantequilla, seguir hasta el paso (8) mientras se enfria.",
+      "Agregar 1 bolsa de harina de brownie a un bowl.",
+      "Agregar a la mezcla 1/4 de taza de leche.",
+      "Agregar a la mezcla 1 cucharadita de cafe soluble.",
+      "Agregar a la mezcla dos huevos.",
+      "Agregar a la mezcla 2 cucharaditas de extracto de vainilla.",
+      "Agregar a la mezcla 1 puño o 1/4 de taza de chispas de chocolate.",
+      "Agregar a la mezcla la mantequilla ya fria del paso (2).",
+      "Agregar a la mezcla 8 galletas partidas en 4 partes, del paso (1)",
+      "Mezclar los ingredientes por 2 a 5 minutos hasta tener una mezcla homogenea.",
+      "Precalentar el horno 10 minutos a 180 grados celcius.",
+      "Poner papel encerado en una bandeja y agregar la mezcla.",
+      "Agregar a la mezcla 4 galletas partidas en 4 pedazos en el paso (1).",
+      "Agregar a la mezcla 1 puño o 1/4 de taza de chispas de chocolate, preferiblemente en los espacios entre las galletas.",
+      "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
+    ]
   }
 ]
