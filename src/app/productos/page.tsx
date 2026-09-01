@@ -214,6 +214,29 @@ export default function ProductosPage() {
     }
   };
 
+  const handleDuplicate = async (prod: Product) => {
+    const duplicatedProduct: Product = {
+      ...prod,
+      id: `prod_${crypto.randomUUID()}`,
+      name: `${prod.name} (copia)`,
+      ingredients: prod.ingredients.map(item => ({ ...item })),
+      equipmentUsage: prod.equipmentUsage.map(item => ({ ...item })),
+      recipeSteps: [...(prod.recipeSteps || [])],
+      images: [...(prod.images || [])]
+    };
+
+    const res = await fetch('/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(duplicatedProduct)
+    });
+
+    if (res.ok) {
+      setProducts([...products, duplicatedProduct]);
+      startEdit(duplicatedProduct);
+    }
+  };
+
   const addIngredientToProduct = (ingredientId: string) => {
     if (!ingredientId) return;
     if (formProduct.ingredients.find(i => i.ingredientId === ingredientId)) return;
@@ -795,6 +818,7 @@ export default function ProductosPage() {
               <h3 style={{ margin: 0, flex: 1, fontSize: '1.2rem' }}>{prod.name}</h3>
               <div>
                 <button onClick={() => startEdit(prod)} className="table-action-btn table-action-edit">Editar</button>
+                <button onClick={() => handleDuplicate(prod)} className="table-action-btn table-action-edit">Duplicar</button>
                 <button onClick={() => handleDelete(prod.id)} className="table-action-btn table-action-delete">Eliminar</button>
               </div>
             </div>
@@ -806,7 +830,7 @@ export default function ProductosPage() {
               {prod.equipmentUsage.length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>⚡ {prod.equipmentUsage.length} equipo{prod.equipmentUsage.length !== 1 ? 's' : ''}</span>}
               {(prod.recipeSteps || []).length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>📝 {(prod.recipeSteps || []).length} paso{(prod.recipeSteps || []).length !== 1 ? 's' : ''}</span>}
               {(prod.images || []).length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>🖼️ {(prod.images || []).length} foto{(prod.images || []).length !== 1 ? 's' : ''}</span>}
-              {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍪 Rinde {prod.yield} pieza{prod.yield !== 1 ? 's' : ''}</span> : null}
+              {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍪 Porciones por lote: {prod.yield}</span> : null}
             </div>
 
             <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem', marginTop: 'auto' }}>

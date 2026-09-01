@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
+import { put } from '@vercel/blob';
 
 const ALLOWED_DIRECTORIES = new Set(['products', 'brand']);
 const ALLOWED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
@@ -36,18 +37,38 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Only image uploads are allowed' }, { status: 400 });
     }
 
+    const fileName = `${Date.now()}-${crypto.randomUUID()}.${getExtension(file)}`;
+    const buffer = Buffer.from(await file.arrayBuffer());
+
+    // Try Vercel Blob if configured
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      try {
+        const blob = await put(`uploads/${directory}/${fileName}`, buffer, {
+          access: 'public',
+          contentType: file.type
+        });
+        return NextResponse.json({ url: blob.url });
+      } catch (error) {
+        console.error('Failed to upload to Vercel Blob', error);
+        // Fallthrough to local FS if we want, or just fail in Vercel
+        if (process.env.VERCEL) {
+           return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
+        }
+      }
+    }
+
+    // Fallback to local FS
     const uploadDir = path.join(process.cwd(), 'public', 'uploads', directory);
     await fs.mkdir(uploadDir, { recursive: true });
 
-    const fileName = `${Date.now()}-${crypto.randomUUID()}.${getExtension(file)}`;
     const filePath = path.join(uploadDir, fileName);
-    const buffer = Buffer.from(await file.arrayBuffer());
     await fs.writeFile(filePath, buffer);
 
     return NextResponse.json({
       url: `/uploads/${directory}/${fileName}`
     });
-  } catch {
+  } catch (error) {
+    console.error('Upload route error:', error);
     return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
   }
 }

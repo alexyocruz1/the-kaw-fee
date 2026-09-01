@@ -64,6 +64,305 @@
       "Agregar a la mezcla 4 galletas partidas en 4 pedazos en el paso (1).",
       "Agregar a la mezcla 1 puño o 1/4 de taza de chispas de chocolate, preferiblemente en los espacios entre las galletas.",
       "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
-    ]
+    ],
+    "salePrice": 60,
+    "images": []
+  },
+  {
+    "id": "prod_094f7684-4840-41a3-bdca-265f4a29833a",
+    "name": "Brownie de Oreo",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488483576",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488963329",
+        "quantity": 0.25,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1786490569778",
+        "quantity": 1,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 2,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 1,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786488818728",
+        "quantity": 12,
+        "unit": "pieza"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "yield": 6,
+    "recipeSteps": [
+      "Partir 12 galletas en 4 partes cada una, partiéndolas a la mitad 2 veces con un cuchillo.\n\nDividir en dos grupos: 8 galletas y 4 galletas.",
+      "En un taza derretir una barra de mantequilla, seguir hasta el paso (8) mientras se enfria.",
+      "Agregar 1 bolsa de harina de brownie a un bowl.",
+      "Agregar a la mezcla 1/4 de taza de leche.",
+      "Agregar a la mezcla 1 cucharadita de cafe soluble.",
+      "Agregar a la mezcla dos huevos.",
+      "Agregar a la mezcla 2 cucharaditas de extracto de vainilla.",
+      "Agregar a la mezcla la mantequilla ya fria del paso (2).",
+      "Agregar a la mezcla 8 galletas partidas en 4 partes, del paso (1)",
+      "Mezclar los ingredientes por 2 a 5 minutos hasta tener una mezcla homogenea.",
+      "Precalentar el horno 10 minutos a 180 grados celcius.",
+      "Poner papel encerado en una bandeja y agregar la mezcla.",
+      "Agregar a la mezcla 4 galletas partidas en 4 pedazos en el paso (1).",
+      "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
+    ],
+    "salePrice": 60,
+    "images": []
+  },
+  {
+    "id": "prod_b03b15b4-13ca-42bf-963f-b58f540c598b",
+    "name": "Carrot Cake",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 227,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446018290",
+        "quantity": 200,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 2,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1787446112143",
+        "quantity": 60,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446192967",
+        "quantity": 72.5,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 1.5,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1787446230971",
+        "quantity": 155,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446307959",
+        "quantity": 5,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446349417",
+        "quantity": 1.5,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446390859",
+        "quantity": 1.25,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446585470",
+        "quantity": 0.5,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446502527",
+        "quantity": 0.5,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446538333",
+        "quantity": 180,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446432693",
+        "quantity": 35,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446650514",
+        "quantity": 227,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446683890",
+        "quantity": 180,
+        "unit": "gramo"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "recipeSteps": [],
+    "salePrice": 400,
+    "images": []
+  },
+  {
+    "id": "prod_f453780e-9b22-49a7-8b1b-5207df70bb9a",
+    "name": "Muffins de Zanahoria con Nuez",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 2,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1787446018290",
+        "quantity": 200,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 2,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1787446112143",
+        "quantity": 60,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446192967",
+        "quantity": 72.5,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 0.5,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1787446230971",
+        "quantity": 155,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446307959",
+        "quantity": 5,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446349417",
+        "quantity": 1,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446390859",
+        "quantity": 1,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446585470",
+        "quantity": 0.5,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446502527",
+        "quantity": 0.5,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446538333",
+        "quantity": 180,
+        "unit": "gramo"
+      },
+      {
+        "ingredientId": "ing_1787446432693",
+        "quantity": 35,
+        "unit": "gramo"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "yield": 10,
+    "recipeSteps": [],
+    "salePrice": 45,
+    "images": []
+  },
+  {
+    "id": "prod_abfd0a73-4ac7-44cd-bcd4-62dc26962d17",
+    "name": "Brownie de Pretzel",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488483576",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488963329",
+        "quantity": 0.25,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1786490569778",
+        "quantity": 1,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 2,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 1,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1788226469981",
+        "quantity": 140,
+        "unit": "gramo"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "yield": 6,
+    "recipeSteps": [
+      "Partir 12 galletas en 4 partes cada una, partiéndolas a la mitad 2 veces con un cuchillo.\n\nDividir en dos grupos: 8 galletas y 4 galletas.",
+      "En un taza derretir una barra de mantequilla, seguir hasta el paso (8) mientras se enfria.",
+      "Agregar 1 bolsa de harina de brownie a un bowl.",
+      "Agregar a la mezcla 1/4 de taza de leche.",
+      "Agregar a la mezcla 1 cucharadita de cafe soluble.",
+      "Agregar a la mezcla dos huevos.",
+      "Agregar a la mezcla 2 cucharaditas de extracto de vainilla.",
+      "Agregar a la mezcla la mantequilla ya fria del paso (2).",
+      "Agregar a la mezcla 8 galletas partidas en 4 partes, del paso (1)",
+      "Mezclar los ingredientes por 2 a 5 minutos hasta tener una mezcla homogenea.",
+      "Precalentar el horno 10 minutos a 180 grados celcius.",
+      "Poner papel encerado en una bandeja y agregar la mezcla.",
+      "Agregar a la mezcla 4 galletas partidas en 4 pedazos en el paso (1).",
+      "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
+    ],
+    "salePrice": 70,
+    "images": []
   }
 ]

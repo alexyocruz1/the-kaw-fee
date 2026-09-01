@@ -9,6 +9,7 @@ const navItems = [
   { name: 'Ingredientes', path: '/ingredientes', icon: '🥕' },
   { name: 'Equipos', path: '/equipos', icon: '⚡' },
   { name: 'Productos y Precios', path: '/productos', icon: '☕' },
+  { name: 'Ventas', path: '/ventas', icon: '💸' },
   { name: 'Workshop', path: '/workshop', icon: '🎨' },
   { name: 'Configuración', path: '/configuracion', icon: '⚙️' },
 ];

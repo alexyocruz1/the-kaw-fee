@@ -91,5 +91,133 @@
         "ratioToBase": 0.006
       }
     ]
+  },
+  {
+    "name": "Azúcar Morena Zulka",
+    "unit": "kg",
+    "packageSize": 2,
+    "costPerUnit": 44,
+    "customEquivalences": [],
+    "id": "ing_1787446018290"
+  },
+  {
+    "name": "Manzana Verde",
+    "unit": "kg",
+    "packageSize": 1,
+    "costPerUnit": 38,
+    "customEquivalences": [],
+    "id": "ing_1787446112143"
+  },
+  {
+    "name": "Yoghurt Yoplait Griego Natural sin Azúcar",
+    "unit": "gramo",
+    "packageSize": 145,
+    "costPerUnit": 17,
+    "customEquivalences": [],
+    "id": "ing_1787446192967"
+  },
+  {
+    "name": "Harina de trigo San Blas",
+    "unit": "kg",
+    "packageSize": 1,
+    "costPerUnit": 16,
+    "customEquivalences": [],
+    "id": "ing_1787446230971"
+  },
+  {
+    "name": "Bicarbonato de Sodio",
+    "unit": "gramo",
+    "packageSize": 227,
+    "costPerUnit": 30,
+    "customEquivalences": [],
+    "id": "ing_1787446307959"
+  },
+  {
+    "name": "Sal Refinada",
+    "unit": "gramo",
+    "packageSize": 750,
+    "costPerUnit": 21,
+    "customEquivalences": [],
+    "id": "ing_1787446349417"
+  },
+  {
+    "name": "Canela Molida",
+    "unit": "gramo",
+    "packageSize": 60,
+    "costPerUnit": 23,
+    "customEquivalences": [],
+    "id": "ing_1787446390859"
+  },
+  {
+    "name": "Nuez Great Value",
+    "unit": "gramo",
+    "packageSize": 100,
+    "costPerUnit": 60,
+    "customEquivalences": [],
+    "id": "ing_1787446432693"
+  },
+  {
+    "name": "Jengibre Molido McCormick",
+    "unit": "gramo",
+    "packageSize": 50,
+    "costPerUnit": 48,
+    "customEquivalences": [],
+    "id": "ing_1787446502527"
+  },
+  {
+    "name": "Zanahoria Rallada",
+    "unit": "gramo",
+    "packageSize": 340,
+    "costPerUnit": 29,
+    "customEquivalences": [],
+    "id": "ing_1787446538333"
+  },
+  {
+    "name": "Sazonador Nuez Moscada",
+    "unit": "gramo",
+    "packageSize": 55,
+    "costPerUnit": 50,
+    "customEquivalences": [],
+    "id": "ing_1787446585470"
+  },
+  {
+    "name": "Queso Crema Philadelphia",
+    "unit": "gramo",
+    "packageSize": 127,
+    "costPerUnit": 27,
+    "customEquivalences": [],
+    "id": "ing_1787446650514"
+  },
+  {
+    "name": "Azúcar Glass Zulka",
+    "unit": "gramo",
+    "packageSize": 500,
+    "costPerUnit": 25,
+    "customEquivalences": [],
+    "id": "ing_1787446683890"
+  },
+  {
+    "name": "Azúcar Estándar",
+    "unit": "gramo",
+    "packageSize": 900,
+    "costPerUnit": 21,
+    "customEquivalences": [],
+    "id": "ing_1787446755870"
+  },
+  {
+    "name": "Azúcar Mascabado",
+    "unit": "kg",
+    "packageSize": 1,
+    "costPerUnit": 47,
+    "customEquivalences": [],
+    "id": "ing_1787446784902"
+  },
+  {
+    "name": "Pretzel Brownie",
+    "unit": "gramo",
+    "packageSize": 140,
+    "costPerUnit": 88,
+    "customEquivalences": [],
+    "id": "ing_1788226469981"
   }
 ]
