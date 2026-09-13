@@ -402,9 +402,225 @@
     ],
     "equipmentUsage": [],
     "prepTimeMinutes": 0,
-    "yield": 6,
+    "yield": 36,
     "recipeSteps": [],
     "salePrice": 60,
+    "images": []
+  },
+  {
+    "id": "prod_4503d16e-e4a5-4e89-a411-36c58ab835c2",
+    "name": "Brownie Bites Vaso 12oz",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488483576",
+        "quantity": 0.19444,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488963329",
+        "quantity": 0.04861,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1786490569778",
+        "quantity": 0.19444,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 0.19444,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 0.38889,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 0.19444,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1789264705001",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789267219530",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264704999",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264705002",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264705004",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264704998",
+        "quantity": 1,
+        "unit": "pieza"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "yield": 1,
+    "recipeSteps": [],
+    "salePrice": 0,
+    "images": []
+  },
+  {
+    "id": "prod_b0b9a9e2-962e-49e4-9c8f-b670f0033663",
+    "name": "Brownie Bites Vaso 16oz",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488483576",
+        "quantity": 0.25,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488963329",
+        "quantity": 0.0625,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1786490569778",
+        "quantity": 0.25,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 0.25,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 0.5,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 0.25,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1789264705000",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789267219530",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264704999",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264705002",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264705004",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264704998",
+        "quantity": 1,
+        "unit": "pieza"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "yield": 1,
+    "recipeSteps": [],
+    "salePrice": 0,
+    "images": []
+  },
+  {
+    "id": "prod_f8f6baa7-1400-4caa-a8d0-ef06050b0b45",
+    "name": "Brownie Bites Vaso 26oz",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488483576",
+        "quantity": 0.38889,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488963329",
+        "quantity": 0.09722,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1786490569778",
+        "quantity": 0.38889,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 0.38889,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 0.77778,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 0.38889,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1789264705003",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789267219530",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264704999",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264705002",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264705004",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264704998",
+        "quantity": 1,
+        "unit": "pieza"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "yield": 1,
+    "recipeSteps": [],
+    "salePrice": 0,
     "images": []
   }
 ]
