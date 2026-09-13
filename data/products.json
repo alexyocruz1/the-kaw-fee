@@ -66,7 +66,8 @@
       "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
     ],
     "salePrice": 60,
-    "images": []
+    "images": [],
+    "sellable": true
   },
   {
     "id": "prod_094f7684-4840-41a3-bdca-265f4a29833a",
@@ -667,7 +668,7 @@
     "ingredients": [
       {
         "ingredientId": "ing_1786488765006",
-        "quantity": 6.0,
+        "quantity": 6,
         "unit": "pieza"
       },
       {
@@ -692,7 +693,7 @@
       },
       {
         "ingredientId": "ing_1786490598989",
-        "quantity": 1.0,
+        "quantity": 1,
         "unit": "pieza"
       },
       {
@@ -744,12 +745,12 @@
     "ingredients": [
       {
         "ingredientId": "ing_1786488765006",
-        "quantity": 12.0,
+        "quantity": 12,
         "unit": "pieza"
       },
       {
         "ingredientId": "ing_1786488483576",
-        "quantity": 1.0,
+        "quantity": 1,
         "unit": "pieza"
       },
       {
@@ -759,22 +760,22 @@
       },
       {
         "ingredientId": "ing_1786490569778",
-        "quantity": 1.0,
+        "quantity": 1,
         "unit": "cucharadita"
       },
       {
         "ingredientId": "ing_1786488412834",
-        "quantity": 1.0,
+        "quantity": 1,
         "unit": "pieza"
       },
       {
         "ingredientId": "ing_1786490598989",
-        "quantity": 2.0,
+        "quantity": 2,
         "unit": "pieza"
       },
       {
         "ingredientId": "ing_1786490533402",
-        "quantity": 1.0,
+        "quantity": 1,
         "unit": "cucharadita"
       },
       {

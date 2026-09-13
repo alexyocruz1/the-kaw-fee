@@ -2,6 +2,14 @@ import fs from 'fs';
 import path from 'path';
 import { sql } from '@vercel/postgres';
 
+// Vercel's Prisma Postgres integration owns POSTGRES_URL (locked, and its
+// connection string format isn't compatible with @vercel/postgres). The
+// separately-connected Neon database's pooled URL lands in
+// STORAGE_POSTGRES_URL instead, so prefer that one when present.
+if (process.env.STORAGE_POSTGRES_URL) {
+  process.env.POSTGRES_URL = process.env.STORAGE_POSTGRES_URL;
+}
+
 // Define the absolute path to the root data directory
 const DATA_DIR = path.join(process.cwd(), 'data');
 

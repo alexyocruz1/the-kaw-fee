@@ -2,6 +2,11 @@ import { sql } from '@vercel/postgres';
 import fs from 'fs';
 import path from 'path';
 
+// See src/lib/data.ts for why this override is needed.
+if (process.env.STORAGE_POSTGRES_URL) {
+  process.env.POSTGRES_URL = process.env.STORAGE_POSTGRES_URL;
+}
+
 // If you don't have dotenv installed, we can just ensure the user runs it with env vars loaded.
 // For now, Next.js typically loads .env.local automatically, or we can use the vercel cli to run this.
 
