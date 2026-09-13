@@ -300,5 +300,23 @@
     "costPerUnit": 102,
     "customEquivalences": [],
     "category": "food"
+  },
+  {
+    "id": "ing_1789270908085",
+    "name": "Caja de Galletas",
+    "unit": "pieza",
+    "packageSize": 25,
+    "costPerUnit": 299,
+    "customEquivalences": [],
+    "category": "packaging"
+  },
+  {
+    "id": "ing_1789270908086",
+    "name": "Cuerda de Yute",
+    "unit": "m",
+    "packageSize": 200,
+    "costPerUnit": 150,
+    "customEquivalences": [],
+    "category": "packaging"
   }
 ]

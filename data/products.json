@@ -637,5 +637,181 @@
     "recipeSteps": [],
     "salePrice": 0,
     "images": []
+  },
+  {
+    "id": "prod_2451e637-3ea2-4fe1-a44d-cadb0af4d31d",
+    "name": "Dip de Chocolate",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1789264704998",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789269189150",
+        "quantity": 30,
+        "unit": "gramo"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "yield": 1,
+    "recipeSteps": [],
+    "salePrice": 0,
+    "images": []
+  },
+  {
+    "id": "prod_ed02f2a4-9910-4223-bda4-2f835c7ecf8a",
+    "name": "Crumble Box Chokis 3pz",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488765006",
+        "quantity": 6.0,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488483576",
+        "quantity": 0.5,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488963329",
+        "quantity": 0.125,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1786490569778",
+        "quantity": 0.5,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 0.5,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 1.0,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 0.5,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786490637269",
+        "quantity": 0.25,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1789270908085",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789267219530",
+        "quantity": 2,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264705004",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264705002",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789270908086",
+        "quantity": 1.5,
+        "unit": "m"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "yield": 1,
+    "recipeSteps": [],
+    "salePrice": 0,
+    "images": []
+  },
+  {
+    "id": "prod_0ec603a2-d3c6-4d43-89a8-ee251f3f6830",
+    "name": "Crumble Box Chokis 6pz",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488765006",
+        "quantity": 12.0,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488483576",
+        "quantity": 1.0,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488963329",
+        "quantity": 0.25,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1786490569778",
+        "quantity": 1.0,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 1.0,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 2.0,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 1.0,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786490637269",
+        "quantity": 0.5,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1789270908085",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789267219530",
+        "quantity": 2,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264705004",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789264705002",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789270908086",
+        "quantity": 1.5,
+        "unit": "m"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "yield": 1,
+    "recipeSteps": [],
+    "salePrice": 0,
+    "images": []
   }
 ]
