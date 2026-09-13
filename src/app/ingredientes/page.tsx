@@ -32,6 +32,11 @@ export default function IngredientesPage() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<'all' | 'food' | 'packaging'>('all');
+  const filteredIngredients = ingredients.filter(i =>
+    i.name.toLowerCase().includes(search.toLowerCase()) &&
+    (categoryFilter === 'all' || (i.category || 'food') === categoryFilter)
+  );
   
   const [newIngredient, setNewIngredient] = useState<Omit<Ingredient, 'id'>>({ name: '', unit: 'kg', packageSize: 1, costPerUnit: 0, customEquivalences: [], category: 'food' });
   const [isAdding, setIsAdding] = useState(false);
@@ -260,8 +265,13 @@ export default function IngredientesPage() {
           />
           {search && <button className="search-clear" onClick={() => setSearch('')}>✕</button>}
         </div>
+        <select className="form-input" style={{ width: 'auto' }} value={categoryFilter} onChange={e => setCategoryFilter(e.target.value as 'all' | 'food' | 'packaging')}>
+          <option value="all">Todos</option>
+          <option value="food">🍪 Comida</option>
+          <option value="packaging">📦 Empaque</option>
+        </select>
         <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', whiteSpace: 'nowrap', fontWeight: 500 }}>
-          {ingredients.filter(i => i.name.toLowerCase().includes(search.toLowerCase())).length} de {ingredients.length} resultado{ingredients.filter(i => i.name.toLowerCase().includes(search.toLowerCase())).length !== 1 ? 's' : ''}
+          {filteredIngredients.length} de {ingredients.length} resultado{filteredIngredients.length !== 1 ? 's' : ''}
         </span>
       </div>
 
@@ -276,7 +286,7 @@ export default function IngredientesPage() {
             </tr>
           </thead>
           <tbody>
-            {ingredients.filter(i => i.name.toLowerCase().includes(search.toLowerCase())).map((ing, idx) => {
+            {filteredIngredients.map((ing, idx) => {
               const packageSize = ing.packageSize || 1; 
               const autoUnits = getAutoUnits(ing.unit);
               
@@ -386,7 +396,7 @@ export default function IngredientesPage() {
                 </tr>
               );
             })}
-            {ingredients.filter(i => i.name.toLowerCase().includes(search.toLowerCase())).length === 0 && (
+            {filteredIngredients.length === 0 && (
               <tr>
                 <td colSpan={4}>
                   <div className="empty-state">

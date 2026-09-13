@@ -27,6 +27,7 @@ type Product = {
   recipeSteps?: string[];
   salePrice?: number;
   images?: ProductImage[];
+  sellable?: boolean;
 };
 
 // Auto Conversion engine
@@ -105,6 +106,7 @@ export default function ProductosPage() {
     prepTimeMinutes: 0,
     recipeSteps: [],
     images: [],
+    sellable: true,
   });
 
   const [search, setSearch] = useState('');
@@ -139,7 +141,8 @@ export default function ProductosPage() {
       recipeSteps: (formProduct.recipeSteps || []).map(step => step.trim()).filter(Boolean),
       images: formProduct.images || [],
       salePrice: formProduct.salePrice && formProduct.salePrice > 0 ? Number(formProduct.salePrice) : undefined,
-      yield: isBatch ? (batchYield || 0) : undefined
+      yield: isBatch ? (batchYield || 0) : undefined,
+      sellable: formProduct.sellable !== false
     };
 
     if (editingProductId) {
@@ -180,6 +183,7 @@ export default function ProductosPage() {
       images: [],
       salePrice: undefined,
       yield: isBatch ? batchYield || undefined : undefined,
+      sellable: true,
     });
     setIsBatch(false);
     setBatchYield(0);
@@ -198,7 +202,8 @@ export default function ProductosPage() {
       yield: prod.yield,
       recipeSteps: [...(prod.recipeSteps || [])],
       salePrice: prod.salePrice,
-      images: [...(prod.images || [])]
+      images: [...(prod.images || [])],
+      sellable: prod.sellable !== false
     });
     setIsBatch(!!prod.yield);
     setBatchYield(prod.yield || 0);
@@ -640,6 +645,18 @@ export default function ProductosPage() {
                     Si lo dejas vacío, se usará el precio sugerido automáticamente.
                   </p>
                 </div>
+                <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <input
+                    type="checkbox"
+                    id="sellable-checkbox"
+                    checked={formProduct.sellable !== false}
+                    onChange={e => setFormProduct({...formProduct, sellable: e.target.checked})}
+                  />
+                  <label htmlFor="sellable-checkbox" className="form-label" style={{ margin: 0 }}>Producto vendible</label>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0 }}>
+                    Desactívalo para lotes de producción interna (ej. Brownie Bites) que no se venden directamente y no deben aparecer en Ventas.
+                  </p>
+                </div>
                 {(() => {
                   const advice = getPriceAdvice(formProduct);
                   return (
@@ -833,6 +850,7 @@ export default function ProductosPage() {
             
             <div style={{ margin: '0.75rem 0', flex: 1, display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
               {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px', background: 'var(--color-carbon)', color: 'white' }}>Lote</span> : null}
+              {prod.sellable === false ? <span className="badge badge-auto" style={{ marginTop: '4px', background: '#d97706', color: 'white' }}>🚫 No vendible</span> : null}
               <span className="badge badge-auto">🧠 {prod.ingredients.length} ingrediente{prod.ingredients.length !== 1 ? 's' : ''}</span>
               <span className="badge badge-auto" style={{ marginTop: '4px' }}>⏱️ {prod.prepTimeMinutes} min preparación</span>
               {prod.equipmentUsage.length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>⚡ {prod.equipmentUsage.length} equipo{prod.equipmentUsage.length !== 1 ? 's' : ''}</span>}

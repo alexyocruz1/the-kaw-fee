@@ -18,6 +18,7 @@ type Product = {
   customMarginMultiplier?: number;
   yield?: number;
   salePrice?: number;
+  sellable?: boolean;
 };
 type Sale = {
   id: string;
@@ -70,10 +71,13 @@ export default function VentasPage() {
       setEquiposList(eqData);
       setSettings(setData);
       setSales(salesData);
-      setProductId(prodData[0]?.id || '');
+      const sellableProducts = prodData.filter((p: Product) => p.sellable !== false);
+      setProductId(sellableProducts[0]?.id || '');
       setLoading(false);
     });
   }, []);
+
+  const sellableProducts = products.filter(p => p.sellable !== false);
 
   const selectedProduct = products.find(product => product.id === productId);
 
@@ -184,7 +188,7 @@ export default function VentasPage() {
           <div className="form-group">
             <label className="form-label">Producto</label>
             <select className="form-input" value={productId} onChange={e => setProductId(e.target.value)} required>
-              {products.map(product => <option key={product.id} value={product.id}>{product.name}</option>)}
+              {sellableProducts.map(product => <option key={product.id} value={product.id}>{product.name}</option>)}
             </select>
           </div>
           <div className="form-group">
@@ -221,7 +225,19 @@ export default function VentasPage() {
                 <div key={sale.id} style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '1rem', display: 'grid', gridTemplateColumns: '1fr auto', gap: '1rem', alignItems: 'center' }}>
                   <div>
                     <strong>{sale.productName}</strong>
-                    <p style={{ color: 'var(--text-secondary)', margin: '0.25rem 0 0', fontSize: '0.9rem' }}>{sale.date} · {sale.quantity} vendido{sale.quantity !== 1 ? 's' : ''} · {sale.paymentMethod === 'tarjeta' ? 'Tarjeta' : 'Efectivo'}</p>
+                    <p style={{ color: 'var(--text-secondary)', margin: '0.25rem 0 0', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                      <span>{sale.date} · {sale.quantity} vendido{sale.quantity !== 1 ? 's' : ''}</span>
+                      <span style={{
+                        fontSize: '0.75rem',
+                        fontWeight: 600,
+                        padding: '0.1rem 0.5rem',
+                        borderRadius: '999px',
+                        color: 'white',
+                        background: sale.paymentMethod === 'tarjeta' ? '#2563eb' : '#16a34a'
+                      }}>
+                        {sale.paymentMethod === 'tarjeta' ? `💳 Tarjeta${sale.cardFee ? ` (-$${sale.cardFee.toFixed(2)})` : ''}` : '💵 Efectivo'}
+                      </span>
+                    </p>
                   </div>
                   <div style={{ textAlign: 'right' }}>
                     <strong style={{ color: 'var(--accent-secondary)' }}>${((sale.unitPrice - sale.unitCost) * sale.quantity - (sale.cardFee || 0)).toFixed(2)}</strong>

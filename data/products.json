@@ -404,8 +404,9 @@
     "prepTimeMinutes": 0,
     "yield": 36,
     "recipeSteps": [],
-    "salePrice": 60,
-    "images": []
+    "salePrice": 0,
+    "images": [],
+    "sellable": false
   },
   {
     "id": "prod_4503d16e-e4a5-4e89-a411-36c58ab835c2",
