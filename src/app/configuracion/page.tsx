@@ -9,6 +9,7 @@ type Settings = {
   globalMarginMultiplier: number;
   businessName?: string;
   logoUrl?: string;
+  zettleFeePercent?: number;
 };
 
 export default function ConfiguracionPage() {
@@ -236,6 +237,21 @@ export default function ConfiguracionPage() {
           />
           <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
             Ejemplo: {settings.globalMarginMultiplier} significa un margen del {settings.globalMarginMultiplier * 100}% (precio de venta = costo total x {settings.globalMarginMultiplier}). Esto logra un costo de alimentos del {settings.globalMarginMultiplier > 0 ? (100 / settings.globalMarginMultiplier).toFixed(1) : 0}%.
+          </p>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Comisión Zettle (%)</label>
+          <input
+            type="number"
+            name="zettleFeePercent"
+            value={settings.zettleFeePercent || 0}
+            onChange={handleChange}
+            className="form-input"
+            step="0.01"
+          />
+          <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+            Porcentaje que Zettle cobra por venta pagada con tarjeta (incluye IVA). Se descuenta de la ganancia al registrar una venta con tarjeta.
           </p>
         </div>
       </div>

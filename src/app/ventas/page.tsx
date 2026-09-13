@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 type CustomEquivalence = { unitName: string; ratioToBase: number; };
 type Ingredient = { id: string; name: string; unit: string; packageSize?: number; costPerUnit: number; customEquivalences?: CustomEquivalence[]; };
 type Equipment = { id: string; name: string; powerKW: number; energyType?: 'electricidad' | 'gas'; };
-type Settings = { laborRatePerHour: number; electricityCostPerKwh: number; gasCostPerKg?: number; globalMarginMultiplier: number; };
+type Settings = { laborRatePerHour: number; electricityCostPerKwh: number; gasCostPerKg?: number; globalMarginMultiplier: number; zettleFeePercent?: number; };
 type ProductIngredient = { ingredientId: string; quantity: number; unit: string; };
 type ProductEquipment = { equipmentId: string; minutesUsed: number; };
 type ConversionCategory = 'mass' | 'volume';
@@ -27,6 +27,8 @@ type Sale = {
   unitPrice: number;
   unitCost: number;
   productName: string;
+  paymentMethod?: 'efectivo' | 'tarjeta';
+  cardFee?: number;
 };
 
 const CONVERSIONS: Record<ConversionCategory, Record<string, number>> = {
@@ -52,6 +54,7 @@ export default function VentasPage() {
   const [productId, setProductId] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [date, setDate] = useState(today());
+  const [paymentMethod, setPaymentMethod] = useState<'efectivo' | 'tarjeta'>('efectivo');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -116,10 +119,11 @@ export default function VentasPage() {
   };
 
   const preview = (() => {
-    if (!selectedProduct) return { revenue: 0, cost: 0, profit: 0 };
+    if (!selectedProduct) return { revenue: 0, cost: 0, cardFee: 0, profit: 0 };
     const revenue = getUnitPrice(selectedProduct) * quantity;
     const cost = getUnitCost(selectedProduct) * quantity;
-    return { revenue, cost, profit: revenue - cost };
+    const cardFee = paymentMethod === 'tarjeta' ? revenue * ((settings?.zettleFeePercent || 0) / 100) : 0;
+    return { revenue, cost, cardFee, profit: revenue - cost - cardFee };
   })();
 
   const handleSave = async (e: React.FormEvent) => {
@@ -133,7 +137,9 @@ export default function VentasPage() {
       date,
       unitPrice: getUnitPrice(selectedProduct),
       unitCost: getUnitCost(selectedProduct),
-      productName: selectedProduct.name
+      productName: selectedProduct.name,
+      paymentMethod,
+      cardFee: preview.cardFee
     };
 
     const res = await fetch('/api/sales', {
@@ -189,9 +195,19 @@ export default function VentasPage() {
             <label className="form-label">Fecha</label>
             <input type="date" className="form-input" value={date} onChange={e => setDate(e.target.value)} />
           </div>
+          <div className="form-group">
+            <label className="form-label">Método de pago</label>
+            <select className="form-input" value={paymentMethod} onChange={e => setPaymentMethod(e.target.value as 'efectivo' | 'tarjeta')}>
+              <option value="efectivo">Efectivo</option>
+              <option value="tarjeta">Tarjeta (Zettle)</option>
+            </select>
+          </div>
           <div style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '1rem', marginBottom: '1.5rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}><span>Ingreso</span><strong>${preview.revenue.toFixed(2)}</strong></div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}><span>Costo</span><strong>${preview.cost.toFixed(2)}</strong></div>
+            {paymentMethod === 'tarjeta' && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}><span>Comisión Zettle ({settings?.zettleFeePercent}%)</span><strong>-${preview.cardFee.toFixed(2)}</strong></div>
+            )}
             <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Ganancia</span><strong style={{ color: 'var(--accent-secondary)' }}>${preview.profit.toFixed(2)}</strong></div>
           </div>
           <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Guardar Venta</button>
@@ -205,10 +221,10 @@ export default function VentasPage() {
                 <div key={sale.id} style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', padding: '1rem', display: 'grid', gridTemplateColumns: '1fr auto', gap: '1rem', alignItems: 'center' }}>
                   <div>
                     <strong>{sale.productName}</strong>
-                    <p style={{ color: 'var(--text-secondary)', margin: '0.25rem 0 0', fontSize: '0.9rem' }}>{sale.date} · {sale.quantity} vendido{sale.quantity !== 1 ? 's' : ''}</p>
+                    <p style={{ color: 'var(--text-secondary)', margin: '0.25rem 0 0', fontSize: '0.9rem' }}>{sale.date} · {sale.quantity} vendido{sale.quantity !== 1 ? 's' : ''} · {sale.paymentMethod === 'tarjeta' ? 'Tarjeta' : 'Efectivo'}</p>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <strong style={{ color: 'var(--accent-secondary)' }}>${((sale.unitPrice - sale.unitCost) * sale.quantity).toFixed(2)}</strong>
+                    <strong style={{ color: 'var(--accent-secondary)' }}>${((sale.unitPrice - sale.unitCost) * sale.quantity - (sale.cardFee || 0)).toFixed(2)}</strong>
                     <button type="button" className="table-action-btn table-action-delete" onClick={() => handleDelete(sale.id)} style={{ display: 'block', marginTop: '0.35rem' }}>Eliminar</button>
                   </div>
                 </div>

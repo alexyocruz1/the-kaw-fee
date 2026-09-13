@@ -9,7 +9,7 @@ type CustomEquivalence = {
 
 type Ingredient = { id: string; name: string; unit: string; packageSize?: number; costPerUnit: number; customEquivalences?: CustomEquivalence[]; };
 type Equipment = { id: string; name: string; powerKW: number; energyType?: 'electricidad' | 'gas'; };
-type Settings = { laborRatePerHour: number; electricityCostPerKwh: number; gasCostPerKg?: number; globalMarginMultiplier: number; };
+type Settings = { laborRatePerHour: number; electricityCostPerKwh: number; gasCostPerKg?: number; globalMarginMultiplier: number; zettleFeePercent?: number; };
 
 type ProductIngredient = { ingredientId: string; quantity: number; unit: string; };
 type ProductEquipment = { equipmentId: string; minutesUsed: number; };
@@ -439,6 +439,12 @@ export default function ProductosPage() {
 
   const calculateActualUnitPrice = (p: Omit<Product, 'id'>) => p.salePrice && p.salePrice > 0 ? p.salePrice : calculateSuggestedUnitPrice(p);
 
+  const calculateCardPrice = (p: Omit<Product, 'id'>) => {
+    const fee = (settings?.zettleFeePercent || 0) / 100;
+    if (fee <= 0) return calculateActualUnitPrice(p);
+    return calculateActualUnitPrice(p) / (1 - fee);
+  };
+
   const calculateActualTotalRevenue = (p: Omit<Product, 'id'>) => calculateActualUnitPrice(p) * getUnitCount(p);
 
   const calculateActualProfit = (p: Omit<Product, 'id'>) => calculateActualTotalRevenue(p) - calculateTotalCost(p);
@@ -763,6 +769,7 @@ export default function ProductosPage() {
                 <p style={{ color: 'var(--color-leche)', fontSize: '0.9rem' }}>{isBatch ? 'Precio actual por pieza' : 'Precio actual de venta'}</p>
                 <h2 style={{ color: 'var(--accent-primary)', fontSize: '2.5rem', margin: 0 }}>${calculateActualUnitPrice(formProduct).toFixed(2)}</h2>
                 <p style={{ color: '#bbb', fontSize: '0.85rem', margin: '0.35rem 0 0' }}>Sugerido: ${calculateSuggestedUnitPrice(formProduct).toFixed(2)}</p>
+                <p style={{ color: '#bbb', fontSize: '0.85rem', margin: '0.2rem 0 0' }}>Con tarjeta: ${calculateCardPrice(formProduct).toFixed(2)}</p>
               </div>
             </div>
 
@@ -777,6 +784,7 @@ export default function ProductosPage() {
                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Precio actual por pieza</p>
                   <h2 style={{ color: 'var(--accent-secondary)', fontSize: '2.5rem', margin: 0 }}>${calculateActualUnitPrice(formProduct).toFixed(2)}</h2>
                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', margin: '0.35rem 0 0' }}>Ingreso lote: ${calculateActualTotalRevenue(formProduct).toFixed(2)}</p>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', margin: '0.2rem 0 0' }}>Con tarjeta: ${calculateCardPrice(formProduct).toFixed(2)}</p>
                 </div>
               </div>
             )}
@@ -851,6 +859,10 @@ export default function ProductosPage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
                 <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Sugerido por {unitLabel}:</span>
                 <strong>${calculateSuggestedUnitPrice(prod).toFixed(2)}</strong>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Con tarjeta por {unitLabel}:</span>
+                <strong>${calculateCardPrice(prod).toFixed(2)}</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
                 <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Ganancia por {unitLabel}:</span>

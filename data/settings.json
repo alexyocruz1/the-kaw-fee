@@ -3,5 +3,6 @@
   "electricityCostPerKwh": 4.5,
   "globalMarginMultiplier": 3,
   "gasCostPerKg": 21,
-  "businessName": "The Kaw-Fee"
+  "businessName": "The Kaw-Fee",
+  "zettleFeePercent": 4.06
 }
