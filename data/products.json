@@ -470,6 +470,11 @@
         "ingredientId": "ing_1789264704998",
         "quantity": 1,
         "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789269189150",
+        "quantity": 30,
+        "unit": "gramo"
       }
     ],
     "equipmentUsage": [],
@@ -542,6 +547,11 @@
         "ingredientId": "ing_1789264704998",
         "quantity": 1,
         "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789269189150",
+        "quantity": 30,
+        "unit": "gramo"
       }
     ],
     "equipmentUsage": [],
@@ -614,6 +624,11 @@
         "ingredientId": "ing_1789264704998",
         "quantity": 1,
         "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1789269189150",
+        "quantity": 30,
+        "unit": "gramo"
       }
     ],
     "equipmentUsage": [],

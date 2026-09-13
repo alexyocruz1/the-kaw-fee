@@ -291,5 +291,14 @@
     "costPerUnit": 374,
     "customEquivalences": [],
     "category": "packaging"
+  },
+  {
+    "id": "ing_1789269189150",
+    "name": "Jarabe de chocolate Hershey's",
+    "unit": "gramo",
+    "packageSize": 589,
+    "costPerUnit": 102,
+    "customEquivalences": [],
+    "category": "food"
   }
 ]
