@@ -364,5 +364,47 @@
     ],
     "salePrice": 70,
     "images": []
+  },
+  {
+    "id": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
+    "name": "Brownie Bites",
+    "ingredients": [
+      {
+        "ingredientId": "ing_1786488483576",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786488963329",
+        "quantity": 0.25,
+        "unit": "taza"
+      },
+      {
+        "ingredientId": "ing_1786490569778",
+        "quantity": 1,
+        "unit": "cucharadita"
+      },
+      {
+        "ingredientId": "ing_1786488412834",
+        "quantity": 1,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490598989",
+        "quantity": 2,
+        "unit": "pieza"
+      },
+      {
+        "ingredientId": "ing_1786490533402",
+        "quantity": 1,
+        "unit": "cucharadita"
+      }
+    ],
+    "equipmentUsage": [],
+    "prepTimeMinutes": 0,
+    "yield": 6,
+    "recipeSteps": [],
+    "salePrice": 60,
+    "images": []
   }
 ]

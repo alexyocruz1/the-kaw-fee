@@ -219,5 +219,68 @@
     "costPerUnit": 88,
     "customEquivalences": [],
     "id": "ing_1788226469981"
+  },
+  {
+    "id": "ing_1789264704998",
+    "name": "Contenedores de dip 2oz",
+    "unit": "pieza",
+    "packageSize": 100,
+    "costPerUnit": 140,
+    "customEquivalences": [],
+    "category": "packaging"
+  },
+  {
+    "id": "ing_1789264704999",
+    "name": "Tenedor coctelero",
+    "unit": "pieza",
+    "packageSize": 200,
+    "costPerUnit": 189,
+    "customEquivalences": [],
+    "category": "packaging"
+  },
+  {
+    "id": "ing_1789264705000",
+    "name": "Vaso de 16oz",
+    "unit": "pieza",
+    "packageSize": 50,
+    "costPerUnit": 624,
+    "customEquivalences": [],
+    "category": "packaging"
+  },
+  {
+    "id": "ing_1789264705001",
+    "name": "Vaso de 12oz",
+    "unit": "pieza",
+    "packageSize": 25,
+    "costPerUnit": 545,
+    "customEquivalences": [],
+    "category": "packaging"
+  },
+  {
+    "id": "ing_1789264705002",
+    "name": "Bolsa de manga",
+    "unit": "pieza",
+    "packageSize": 500,
+    "costPerUnit": 395,
+    "customEquivalences": [],
+    "category": "packaging"
+  },
+  {
+    "id": "ing_1789264705003",
+    "name": "Vaso de 26oz",
+    "unit": "pieza",
+    "packageSize": 50,
+    "costPerUnit": 649,
+    "customEquivalences": [],
+    "category": "packaging"
+  },
+  {
+    "id": "ing_1789264705004",
+    "name": "Stickers",
+    "unit": "pieza",
+    "packageSize": 100,
+    "costPerUnit": 210,
+    "customEquivalences": [],
+    "category": "packaging"
   }
 ]

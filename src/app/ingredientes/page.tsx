@@ -14,6 +14,7 @@ type Ingredient = {
   packageSize: number;
   costPerUnit: number;
   customEquivalences?: CustomEquivalence[];
+  category?: 'food' | 'packaging';
 };
 
 const CONVERSIONS: any = {
@@ -32,7 +33,7 @@ export default function IngredientesPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   
-  const [newIngredient, setNewIngredient] = useState<Omit<Ingredient, 'id'>>({ name: '', unit: 'kg', packageSize: 1, costPerUnit: 0, customEquivalences: [] });
+  const [newIngredient, setNewIngredient] = useState<Omit<Ingredient, 'id'>>({ name: '', unit: 'kg', packageSize: 1, costPerUnit: 0, customEquivalences: [], category: 'food' });
   const [isAdding, setIsAdding] = useState(false);
 
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -66,7 +67,7 @@ export default function IngredientesPage() {
     });
 
     if (res.ok) {
-      setNewIngredient({ name: '', unit: 'kg', packageSize: 1, costPerUnit: 0, customEquivalences: [] });
+      setNewIngredient({ name: '', unit: 'kg', packageSize: 1, costPerUnit: 0, customEquivalences: [], category: 'food' });
       setIsAdding(false);
       fetchIngredients();
     }
@@ -170,12 +171,20 @@ export default function IngredientesPage() {
         <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
           <h3>Nuevo Ingrediente</h3>
           <form onSubmit={handleAdd}>
-            <div className="responsive-grid-4" style={{ display: 'grid', gap: '1rem', alignItems: 'end', marginTop: '1rem' }} data-cols="2fr 1fr 1fr 1fr">
+            <div className="responsive-grid-4" style={{ display: 'grid', gap: '1rem', alignItems: 'end', marginTop: '1rem' }} data-cols="2fr 1fr 1fr 1fr 1fr">
               <div className="form-group" style={{ marginBottom: 0 }}>
                 <label className="form-label">Nombre</label>
                 <input type="text" className="form-input" value={newIngredient.name} onChange={e => setNewIngredient({...newIngredient, name: e.target.value})} required placeholder="ej. Leche Entera" />
               </div>
-              
+
+              <div className="form-group" style={{ marginBottom: 0 }}>
+                <label className="form-label">Categoría</label>
+                <select className="form-input" value={newIngredient.category || 'food'} onChange={e => setNewIngredient({...newIngredient, category: e.target.value as 'food' | 'packaging'})}>
+                  <option value="food">Comida</option>
+                  <option value="packaging">Empaque</option>
+                </select>
+              </div>
+
               <div className="form-group" style={{ marginBottom: 0 }}>
                 <label className="form-label">Unidad (Base)</label>
                 <select className="form-input" value={newIngredient.unit} onChange={e => setNewIngredient({...newIngredient, unit: e.target.value})}>
@@ -275,8 +284,15 @@ export default function IngredientesPage() {
                 <tr key={ing.id} style={{ borderBottom: '1px solid var(--border-color)', backgroundColor: idx % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.2)' }}>
                   {editingId === ing.id && editForm ? (
                     <td colSpan={4} style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.5)' }}>
-                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                         <div><label className="form-label" style={{fontSize: '0.8rem'}}>Nombre</label><input type="text" className="form-input" value={editForm.name} onChange={e => setEditForm({...editForm, name: e.target.value})} /></div>
+                        <div>
+                          <label className="form-label" style={{fontSize: '0.8rem'}}>Categoría</label>
+                          <select className="form-input" value={editForm.category || 'food'} onChange={e => setEditForm({...editForm, category: e.target.value as 'food' | 'packaging'})}>
+                            <option value="food">Comida</option>
+                            <option value="packaging">Empaque</option>
+                          </select>
+                        </div>
                         <div>
                           <label className="form-label" style={{fontSize: '0.8rem'}}>Unidad</label>
                           <select className="form-input" value={editForm.unit} onChange={e => setEditForm({...editForm, unit: e.target.value})}>
@@ -318,7 +334,9 @@ export default function IngredientesPage() {
                   ) : (
                     <>
                       <td style={{ padding: '1rem 1.5rem' }}>
-                        <strong>{ing.name}</strong><br/>
+                        <strong>{ing.name}</strong>
+                        {ing.category === 'packaging' && <span className="badge badge-auto" style={{ marginLeft: '0.5rem', fontSize: '0.7rem' }}>📦 Empaque</span>}
+                        <br/>
                         <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Envase: {packageSize} {ing.unit} · ${ing.costPerUnit.toFixed(2)}</span>
                       </td>
                       <td style={{ padding: '1rem 1.5rem', fontWeight: 700, color: 'var(--accent-primary)', fontSize: '1.05rem' }}>
