@@ -282,5 +282,14 @@
     "costPerUnit": 210,
     "customEquivalences": [],
     "category": "packaging"
+  },
+  {
+    "id": "ing_1789267219530",
+    "name": "Envoltura de papel encerado",
+    "unit": "pieza",
+    "packageSize": 200,
+    "costPerUnit": 374,
+    "customEquivalences": [],
+    "category": "packaging"
   }
 ]
