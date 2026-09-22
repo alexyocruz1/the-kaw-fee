@@ -28,6 +28,7 @@ type Product = {
   salePrice?: number;
   images?: ProductImage[];
   sellable?: boolean;
+  piecesPerUnit?: number;
 };
 
 // Auto Conversion engine
@@ -203,7 +204,8 @@ export default function ProductosPage() {
       recipeSteps: [...(prod.recipeSteps || [])],
       salePrice: prod.salePrice,
       images: [...(prod.images || [])],
-      sellable: prod.sellable !== false
+      sellable: prod.sellable !== false,
+      piecesPerUnit: prod.piecesPerUnit
     });
     setIsBatch(!!prod.yield);
     setBatchYield(prod.yield || 0);
@@ -570,6 +572,21 @@ export default function ProductosPage() {
               </div>
             </div>
 
+            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+              <label className="form-label">
+                Piezas por unidad <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>(Opcional — ej. cuántos bites lleva el vaso o cuántos brownies la caja)</span>
+              </label>
+              <input
+                type="number"
+                min={1}
+                placeholder="Ej: 9"
+                value={formProduct.piecesPerUnit || ''}
+                onChange={e => setFormProduct({...formProduct, piecesPerUnit: parseInt(e.target.value) || undefined})}
+                className="form-input"
+                style={{ width: '120px' }}
+              />
+            </div>
+
             <h4 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>Fotos del Producto</h4>
             <div style={{ backgroundColor: 'rgba(255,255,255,0.4)', padding: '1.5rem', borderRadius: 'var(--border-radius-sm)', marginBottom: '2rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
@@ -857,6 +874,7 @@ export default function ProductosPage() {
               {(prod.recipeSteps || []).length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>📝 {(prod.recipeSteps || []).length} paso{(prod.recipeSteps || []).length !== 1 ? 's' : ''}</span>}
               {(prod.images || []).length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>🖼️ {(prod.images || []).length} foto{(prod.images || []).length !== 1 ? 's' : ''}</span>}
               {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍪 Porciones por lote: {prod.yield}</span> : null}
+              {prod.piecesPerUnit ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍫 {prod.piecesPerUnit} pieza{prod.piecesPerUnit !== 1 ? 's' : ''} por unidad</span> : null}
             </div>
 
             <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem', marginTop: 'auto' }}>
