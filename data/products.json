@@ -484,6 +484,7 @@
     ],
     "recipeSteps": [],
     "piecesPerUnit": 7,
+    "sourceBatchId": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
     "equipmentUsage": [],
     "prepTimeMinutes": 0
   },
@@ -563,6 +564,7 @@
     ],
     "recipeSteps": [],
     "piecesPerUnit": 9,
+    "sourceBatchId": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
     "equipmentUsage": [],
     "prepTimeMinutes": 0
   },
@@ -642,6 +644,7 @@
     ],
     "recipeSteps": [],
     "piecesPerUnit": 14,
+    "sourceBatchId": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
     "equipmentUsage": [],
     "prepTimeMinutes": 0
   },
@@ -743,6 +746,7 @@
     ],
     "recipeSteps": [],
     "piecesPerUnit": 3,
+    "sourceBatchId": "prod_1786492101692",
     "equipmentUsage": [],
     "prepTimeMinutes": 0
   },
@@ -822,6 +826,7 @@
     ],
     "recipeSteps": [],
     "piecesPerUnit": 6,
+    "sourceBatchId": "prod_1786492101692",
     "equipmentUsage": [],
     "prepTimeMinutes": 0
   }

@@ -29,6 +29,7 @@ type Product = {
   images?: ProductImage[];
   sellable?: boolean;
   piecesPerUnit?: number;
+  sourceBatchId?: string;
 };
 
 // Auto Conversion engine
@@ -205,7 +206,8 @@ export default function ProductosPage() {
       salePrice: prod.salePrice,
       images: [...(prod.images || [])],
       sellable: prod.sellable !== false,
-      piecesPerUnit: prod.piecesPerUnit
+      piecesPerUnit: prod.piecesPerUnit,
+      sourceBatchId: prod.sourceBatchId
     });
     setIsBatch(!!prod.yield);
     setBatchYield(prod.yield || 0);
@@ -442,6 +444,15 @@ export default function ProductosPage() {
 
   const calculateUnitCost = (p: Omit<Product, 'id'>) => calculateTotalCost(p) / getUnitCount(p);
 
+  // How many of this product one batch of its source product yields.
+  const calculateBatchOutput = (p: Omit<Product, 'id'>) => {
+    if (!p.sourceBatchId || !p.piecesPerUnit) return null;
+    const batch = products.find(b => b.id === p.sourceBatchId);
+    if (!batch?.yield) return null;
+    const units = Math.floor(batch.yield / p.piecesPerUnit);
+    return { batchName: batch.name, units, leftover: batch.yield - units * p.piecesPerUnit };
+  };
+
   const calculateSuggestedUnitPrice = (p: Omit<Product, 'id'>) => calculateSuggestedPrice(p) / getUnitCount(p);
 
   const calculateActualUnitPrice = (p: Omit<Product, 'id'>) => p.salePrice && p.salePrice > 0 ? p.salePrice : calculateSuggestedUnitPrice(p);
@@ -585,6 +596,32 @@ export default function ProductosPage() {
                 className="form-input"
                 style={{ width: '120px' }}
               />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+              <label className="form-label">
+                Sale de un lote <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>(Opcional — el producto del que se arma este, para calcular cuántos rinde por lote)</span>
+              </label>
+              <select
+                className="form-input"
+                value={formProduct.sourceBatchId || ''}
+                onChange={e => setFormProduct({...formProduct, sourceBatchId: e.target.value || undefined})}
+              >
+                <option value="">— Ninguno —</option>
+                {products.filter(b => b.yield && b.id !== editingProductId).map(b => (
+                  <option key={b.id} value={b.id}>{b.name} ({b.yield} piezas por lote)</option>
+                ))}
+              </select>
+              {(() => {
+                const output = calculateBatchOutput(formProduct);
+                if (!output) return null;
+                return (
+                  <p style={{ fontSize: '0.85rem', color: 'var(--accent-secondary)', marginTop: '0.5rem', fontWeight: 600 }}>
+                    Un lote de {output.batchName} rinde {output.units} de este producto
+                    {output.leftover > 0 ? ` (sobran ${output.leftover} piezas)` : ' (sin sobrantes)'}.
+                  </p>
+                );
+              })()}
             </div>
 
             <h4 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>Fotos del Producto</h4>
@@ -875,6 +912,15 @@ export default function ProductosPage() {
               {(prod.images || []).length > 0 && <span className="badge badge-auto" style={{ marginTop: '4px' }}>🖼️ {(prod.images || []).length} foto{(prod.images || []).length !== 1 ? 's' : ''}</span>}
               {prod.yield ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍪 Porciones por lote: {prod.yield}</span> : null}
               {prod.piecesPerUnit ? <span className="badge badge-auto" style={{ marginTop: '4px' }}>🍫 {prod.piecesPerUnit} pieza{prod.piecesPerUnit !== 1 ? 's' : ''} por unidad</span> : null}
+              {(() => {
+                const output = calculateBatchOutput(prod);
+                if (!output) return null;
+                return (
+                  <span className="badge badge-auto" style={{ marginTop: '4px', background: output.leftover === 0 ? 'var(--accent-secondary)' : '#d97706', color: 'white' }}>
+                    📦 {output.units} por lote de {output.batchName}{output.leftover > 0 ? ` · sobran ${output.leftover}` : ' · sin sobrantes'}
+                  </span>
+                );
+              })()}
             </div>
 
             <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem', marginTop: 'auto' }}>
