@@ -1,833 +1,911 @@
 [
-  {
-    "id": "prod_1786492101692",
-    "name": "Brownie de Chokis",
-    "yield": 6,
-    "images": [],
-    "sellable": true,
-    "salePrice": 60,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 12,
-        "ingredientId": "ing_1786488765006"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786488483576"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.25,
-        "ingredientId": "ing_1786488963329"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1,
-        "ingredientId": "ing_1786490569778"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 2,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1,
-        "ingredientId": "ing_1786490533402"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.5,
-        "ingredientId": "ing_1786490637269"
-      }
-    ],
-    "recipeSteps": [
-      "Partir 12 galletas en 4 partes cada una, partiéndolas a la mitad 2 veces con un cuchillo.\n\nDividir en dos grupos: 8 galletas y 4 galletas.",
-      "En un taza derretir una barra de mantequilla, seguir hasta el paso (8) mientras se enfria.",
-      "Agregar 1 bolsa de harina de brownie a un bowl.",
-      "Agregar a la mezcla 1/4 de taza de leche.",
-      "Agregar a la mezcla 1 cucharadita de cafe soluble.",
-      "Agregar a la mezcla dos huevos.",
-      "Agregar a la mezcla 2 cucharaditas de extracto de vainilla.",
-      "Agregar a la mezcla 1 puño o 1/4 de taza de chispas de chocolate.",
-      "Agregar a la mezcla la mantequilla ya fria del paso (2).",
-      "Agregar a la mezcla 8 galletas partidas en 4 partes, del paso (1)",
-      "Mezclar los ingredientes por 2 a 5 minutos hasta tener una mezcla homogenea.",
-      "Precalentar el horno 10 minutos a 180 grados celcius.",
-      "Poner papel encerado en una bandeja y agregar la mezcla.",
-      "Agregar a la mezcla 4 galletas partidas en 4 pedazos en el paso (1).",
-      "Agregar a la mezcla 1 puño o 1/4 de taza de chispas de chocolate, preferiblemente en los espacios entre las galletas.",
-      "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
-    ],
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_094f7684-4840-41a3-bdca-265f4a29833a",
-    "name": "Brownie de Oreo",
-    "yield": 6,
-    "images": [],
-    "salePrice": 60,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786488483576"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.25,
-        "ingredientId": "ing_1786488963329"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1,
-        "ingredientId": "ing_1786490569778"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 2,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1,
-        "ingredientId": "ing_1786490533402"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 12,
-        "ingredientId": "ing_1786488818728"
-      }
-    ],
-    "recipeSteps": [
-      "Partir 12 galletas en 4 partes cada una, partiéndolas a la mitad 2 veces con un cuchillo.\n\nDividir en dos grupos: 8 galletas y 4 galletas.",
-      "En un taza derretir una barra de mantequilla, seguir hasta el paso (8) mientras se enfria.",
-      "Agregar 1 bolsa de harina de brownie a un bowl.",
-      "Agregar a la mezcla 1/4 de taza de leche.",
-      "Agregar a la mezcla 1 cucharadita de cafe soluble.",
-      "Agregar a la mezcla dos huevos.",
-      "Agregar a la mezcla 2 cucharaditas de extracto de vainilla.",
-      "Agregar a la mezcla la mantequilla ya fria del paso (2).",
-      "Agregar a la mezcla 8 galletas partidas en 4 partes, del paso (1)",
-      "Mezclar los ingredientes por 2 a 5 minutos hasta tener una mezcla homogenea.",
-      "Precalentar el horno 10 minutos a 180 grados celcius.",
-      "Poner papel encerado en una bandeja y agregar la mezcla.",
-      "Agregar a la mezcla 4 galletas partidas en 4 pedazos en el paso (1).",
-      "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
-    ],
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_b03b15b4-13ca-42bf-963f-b58f540c598b",
-    "name": "Carrot Cake",
-    "images": [],
-    "salePrice": 400,
-    "ingredients": [
-      {
-        "unit": "gramo",
-        "quantity": 227,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 200,
-        "ingredientId": "ing_1787446018290"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 2,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 60,
-        "ingredientId": "ing_1787446112143"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 72.5,
-        "ingredientId": "ing_1787446192967"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1.5,
-        "ingredientId": "ing_1786490533402"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 155,
-        "ingredientId": "ing_1787446230971"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 5,
-        "ingredientId": "ing_1787446307959"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 1.5,
-        "ingredientId": "ing_1787446349417"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 1.25,
-        "ingredientId": "ing_1787446390859"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 0.5,
-        "ingredientId": "ing_1787446585470"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 0.5,
-        "ingredientId": "ing_1787446502527"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 180,
-        "ingredientId": "ing_1787446538333"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 35,
-        "ingredientId": "ing_1787446432693"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 227,
-        "ingredientId": "ing_1787446650514"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 180,
-        "ingredientId": "ing_1787446683890"
-      }
-    ],
-    "recipeSteps": [],
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_f453780e-9b22-49a7-8b1b-5207df70bb9a",
-    "name": "Muffins de Zanahoria con Nuez",
-    "yield": 10,
-    "images": [],
-    "salePrice": 45,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 2,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 200,
-        "ingredientId": "ing_1787446018290"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 2,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 60,
-        "ingredientId": "ing_1787446112143"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 72.5,
-        "ingredientId": "ing_1787446192967"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 0.5,
-        "ingredientId": "ing_1786490533402"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 155,
-        "ingredientId": "ing_1787446230971"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 5,
-        "ingredientId": "ing_1787446307959"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 1,
-        "ingredientId": "ing_1787446349417"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 1,
-        "ingredientId": "ing_1787446390859"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 0.5,
-        "ingredientId": "ing_1787446585470"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 0.5,
-        "ingredientId": "ing_1787446502527"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 180,
-        "ingredientId": "ing_1787446538333"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 35,
-        "ingredientId": "ing_1787446432693"
-      }
-    ],
-    "recipeSteps": [],
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_abfd0a73-4ac7-44cd-bcd4-62dc26962d17",
-    "name": "Brownie de Pretzel",
-    "yield": 6,
-    "images": [],
-    "salePrice": 70,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786488483576"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.25,
-        "ingredientId": "ing_1786488963329"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1,
-        "ingredientId": "ing_1786490569778"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 2,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1,
-        "ingredientId": "ing_1786490533402"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 140,
-        "ingredientId": "ing_1788226469981"
-      }
-    ],
-    "recipeSteps": [
-      "Partir 12 galletas en 4 partes cada una, partiéndolas a la mitad 2 veces con un cuchillo.\n\nDividir en dos grupos: 8 galletas y 4 galletas.",
-      "En un taza derretir una barra de mantequilla, seguir hasta el paso (8) mientras se enfria.",
-      "Agregar 1 bolsa de harina de brownie a un bowl.",
-      "Agregar a la mezcla 1/4 de taza de leche.",
-      "Agregar a la mezcla 1 cucharadita de cafe soluble.",
-      "Agregar a la mezcla dos huevos.",
-      "Agregar a la mezcla 2 cucharaditas de extracto de vainilla.",
-      "Agregar a la mezcla la mantequilla ya fria del paso (2).",
-      "Agregar a la mezcla 8 galletas partidas en 4 partes, del paso (1)",
-      "Mezclar los ingredientes por 2 a 5 minutos hasta tener una mezcla homogenea.",
-      "Precalentar el horno 10 minutos a 180 grados celcius.",
-      "Poner papel encerado en una bandeja y agregar la mezcla.",
-      "Agregar a la mezcla 4 galletas partidas en 4 pedazos en el paso (1).",
-      "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
-    ],
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
-    "name": "Brownie Bites",
-    "yield": 36,
-    "images": [],
-    "sellable": false,
-    "salePrice": 0,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786488483576"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.25,
-        "ingredientId": "ing_1786488963329"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1,
-        "ingredientId": "ing_1786490569778"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 2,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1,
-        "ingredientId": "ing_1786490533402"
-      }
-    ],
-    "recipeSteps": [],
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_4503d16e-e4a5-4e89-a411-36c58ab835c2",
-    "name": "Brownie Bites Vaso 12oz",
-    "yield": 1,
-    "images": [],
-    "salePrice": 0,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 0.19444,
-        "ingredientId": "ing_1786488483576"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.04861,
-        "ingredientId": "ing_1786488963329"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 0.19444,
-        "ingredientId": "ing_1786490569778"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 0.19444,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 0.38889,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 0.19444,
-        "ingredientId": "ing_1786490533402"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705001"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789267219530"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264704999"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705002"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705004"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264704998"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 30,
-        "ingredientId": "ing_1789269189150"
-      }
-    ],
-    "recipeSteps": [],
-    "piecesPerUnit": 7,
-    "sourceBatchId": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_b0b9a9e2-962e-49e4-9c8f-b670f0033663",
-    "name": "Brownie Bites Vaso 16oz",
-    "yield": 1,
-    "images": [],
-    "sellable": true,
-    "salePrice": 109,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 0.25,
-        "ingredientId": "ing_1786488483576"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.0625,
-        "ingredientId": "ing_1786488963329"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 0.25,
-        "ingredientId": "ing_1786490569778"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 0.25,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 0.5,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 0.25,
-        "ingredientId": "ing_1786490533402"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705000"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789267219530"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264704999"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705002"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705004"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264704998"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 30,
-        "ingredientId": "ing_1789269189150"
-      }
-    ],
-    "recipeSteps": [],
-    "piecesPerUnit": 9,
-    "sourceBatchId": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_f8f6baa7-1400-4caa-a8d0-ef06050b0b45",
-    "name": "Brownie Bites Vaso 26oz",
-    "yield": 1,
-    "images": [],
-    "sellable": true,
-    "salePrice": 139,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 0.38889,
-        "ingredientId": "ing_1786488483576"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.09722,
-        "ingredientId": "ing_1786488963329"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 0.38889,
-        "ingredientId": "ing_1786490569778"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 0.38889,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 0.77778,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 0.38889,
-        "ingredientId": "ing_1786490533402"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705003"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789267219530"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264704999"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705002"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705004"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264704998"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 30,
-        "ingredientId": "ing_1789269189150"
-      }
-    ],
-    "recipeSteps": [],
-    "piecesPerUnit": 14,
-    "sourceBatchId": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_2451e637-3ea2-4fe1-a44d-cadb0af4d31d",
-    "name": "Dip de Chocolate",
-    "yield": 1,
-    "images": [],
-    "salePrice": 0,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264704998"
-      },
-      {
-        "unit": "gramo",
-        "quantity": 30,
-        "ingredientId": "ing_1789269189150"
-      }
-    ],
-    "recipeSteps": [],
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_ed02f2a4-9910-4223-bda4-2f835c7ecf8a",
-    "name": "Crumble Box Chokis 3pz",
-    "yield": 1,
-    "images": [],
-    "sellable": true,
-    "salePrice": 209,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 6,
-        "ingredientId": "ing_1786488765006"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 0.5,
-        "ingredientId": "ing_1786488483576"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.125,
-        "ingredientId": "ing_1786488963329"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 0.5,
-        "ingredientId": "ing_1786490569778"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 0.5,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 0.5,
-        "ingredientId": "ing_1786490533402"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.25,
-        "ingredientId": "ing_1786490637269"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789270908085"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 2,
-        "ingredientId": "ing_1789267219530"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705004"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705002"
-      },
-      {
-        "unit": "m",
-        "quantity": 1.5,
-        "ingredientId": "ing_1789270908086"
-      }
-    ],
-    "recipeSteps": [],
-    "piecesPerUnit": 3,
-    "sourceBatchId": "prod_1786492101692",
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  },
-  {
-    "id": "prod_0ec603a2-d3c6-4d43-89a8-ee251f3f6830",
-    "name": "Crumble Box Chokis 6pz",
-    "yield": 1,
-    "images": [],
-    "sellable": true,
-    "salePrice": 379,
-    "ingredients": [
-      {
-        "unit": "pieza",
-        "quantity": 12,
-        "ingredientId": "ing_1786488765006"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786488483576"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.25,
-        "ingredientId": "ing_1786488963329"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1,
-        "ingredientId": "ing_1786490569778"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1786488412834"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 2,
-        "ingredientId": "ing_1786490598989"
-      },
-      {
-        "unit": "cucharadita",
-        "quantity": 1,
-        "ingredientId": "ing_1786490533402"
-      },
-      {
-        "unit": "taza",
-        "quantity": 0.5,
-        "ingredientId": "ing_1786490637269"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789270908085"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 2,
-        "ingredientId": "ing_1789267219530"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705004"
-      },
-      {
-        "unit": "pieza",
-        "quantity": 1,
-        "ingredientId": "ing_1789264705002"
-      },
-      {
-        "unit": "m",
-        "quantity": 1.5,
-        "ingredientId": "ing_1789270908086"
-      }
-    ],
-    "recipeSteps": [],
-    "piecesPerUnit": 6,
-    "sourceBatchId": "prod_1786492101692",
-    "equipmentUsage": [],
-    "prepTimeMinutes": 0
-  }
+    {
+        "id": "prod_1786492101692",
+        "name": "Brownie de Chokis",
+        "yield": 6,
+        "images": [],
+        "sellable": true,
+        "salePrice": 60,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 12,
+                "ingredientId": "ing_1786488765006"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786488483576"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.25,
+                "ingredientId": "ing_1786488963329"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1,
+                "ingredientId": "ing_1786490569778"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 2,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1,
+                "ingredientId": "ing_1786490533402"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.5,
+                "ingredientId": "ing_1786490637269"
+            }
+        ],
+        "recipeSteps": [
+            "Partir 12 galletas en 4 partes cada una, partiéndolas a la mitad 2 veces con un cuchillo.\n\nDividir en dos grupos: 8 galletas y 4 galletas.",
+            "En un taza derretir una barra de mantequilla, seguir hasta el paso (8) mientras se enfria.",
+            "Agregar 1 bolsa de harina de brownie a un bowl.",
+            "Agregar a la mezcla 1/4 de taza de leche.",
+            "Agregar a la mezcla 1 cucharadita de cafe soluble.",
+            "Agregar a la mezcla dos huevos.",
+            "Agregar a la mezcla 2 cucharaditas de extracto de vainilla.",
+            "Agregar a la mezcla 1 puño o 1/4 de taza de chispas de chocolate.",
+            "Agregar a la mezcla la mantequilla ya fria del paso (2).",
+            "Agregar a la mezcla 8 galletas partidas en 4 partes, del paso (1)",
+            "Mezclar los ingredientes por 2 a 5 minutos hasta tener una mezcla homogenea.",
+            "Precalentar el horno 10 minutos a 180 grados celcius.",
+            "Poner papel encerado en una bandeja y agregar la mezcla.",
+            "Agregar a la mezcla 4 galletas partidas en 4 pedazos en el paso (1).",
+            "Agregar a la mezcla 1 puño o 1/4 de taza de chispas de chocolate, preferiblemente en los espacios entre las galletas.",
+            "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
+        ],
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_094f7684-4840-41a3-bdca-265f4a29833a",
+        "name": "Brownie de Oreo",
+        "yield": 6,
+        "images": [],
+        "salePrice": 60,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786488483576"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.25,
+                "ingredientId": "ing_1786488963329"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1,
+                "ingredientId": "ing_1786490569778"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 2,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1,
+                "ingredientId": "ing_1786490533402"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 12,
+                "ingredientId": "ing_1786488818728"
+            }
+        ],
+        "recipeSteps": [
+            "Partir 12 galletas en 4 partes cada una, partiéndolas a la mitad 2 veces con un cuchillo.\n\nDividir en dos grupos: 8 galletas y 4 galletas.",
+            "En un taza derretir una barra de mantequilla, seguir hasta el paso (8) mientras se enfria.",
+            "Agregar 1 bolsa de harina de brownie a un bowl.",
+            "Agregar a la mezcla 1/4 de taza de leche.",
+            "Agregar a la mezcla 1 cucharadita de cafe soluble.",
+            "Agregar a la mezcla dos huevos.",
+            "Agregar a la mezcla 2 cucharaditas de extracto de vainilla.",
+            "Agregar a la mezcla la mantequilla ya fria del paso (2).",
+            "Agregar a la mezcla 8 galletas partidas en 4 partes, del paso (1)",
+            "Mezclar los ingredientes por 2 a 5 minutos hasta tener una mezcla homogenea.",
+            "Precalentar el horno 10 minutos a 180 grados celcius.",
+            "Poner papel encerado en una bandeja y agregar la mezcla.",
+            "Agregar a la mezcla 4 galletas partidas en 4 pedazos en el paso (1).",
+            "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
+        ],
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_b03b15b4-13ca-42bf-963f-b58f540c598b",
+        "name": "Carrot Cake",
+        "images": [],
+        "salePrice": 400,
+        "ingredients": [
+            {
+                "unit": "gramo",
+                "quantity": 227,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 200,
+                "ingredientId": "ing_1787446018290"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 2,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 60,
+                "ingredientId": "ing_1787446112143"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 72.5,
+                "ingredientId": "ing_1787446192967"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1.5,
+                "ingredientId": "ing_1786490533402"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 155,
+                "ingredientId": "ing_1787446230971"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 5,
+                "ingredientId": "ing_1787446307959"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 1.5,
+                "ingredientId": "ing_1787446349417"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 1.25,
+                "ingredientId": "ing_1787446390859"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 0.5,
+                "ingredientId": "ing_1787446585470"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 0.5,
+                "ingredientId": "ing_1787446502527"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 180,
+                "ingredientId": "ing_1787446538333"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 35,
+                "ingredientId": "ing_1787446432693"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 227,
+                "ingredientId": "ing_1787446650514"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 180,
+                "ingredientId": "ing_1787446683890"
+            }
+        ],
+        "recipeSteps": [],
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_f453780e-9b22-49a7-8b1b-5207df70bb9a",
+        "name": "Muffins de Zanahoria con Nuez",
+        "yield": 10,
+        "images": [],
+        "salePrice": 45,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 2,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 200,
+                "ingredientId": "ing_1787446018290"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 2,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 60,
+                "ingredientId": "ing_1787446112143"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 72.5,
+                "ingredientId": "ing_1787446192967"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.5,
+                "ingredientId": "ing_1786490533402"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 155,
+                "ingredientId": "ing_1787446230971"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 5,
+                "ingredientId": "ing_1787446307959"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 1,
+                "ingredientId": "ing_1787446349417"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 1,
+                "ingredientId": "ing_1787446390859"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 0.5,
+                "ingredientId": "ing_1787446585470"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 0.5,
+                "ingredientId": "ing_1787446502527"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 180,
+                "ingredientId": "ing_1787446538333"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 35,
+                "ingredientId": "ing_1787446432693"
+            }
+        ],
+        "recipeSteps": [],
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_abfd0a73-4ac7-44cd-bcd4-62dc26962d17",
+        "name": "Brownie de Pretzel",
+        "yield": 6,
+        "images": [],
+        "salePrice": 70,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786488483576"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.25,
+                "ingredientId": "ing_1786488963329"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1,
+                "ingredientId": "ing_1786490569778"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 2,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1,
+                "ingredientId": "ing_1786490533402"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 140,
+                "ingredientId": "ing_1788226469981"
+            }
+        ],
+        "recipeSteps": [
+            "Partir 12 galletas en 4 partes cada una, partiéndolas a la mitad 2 veces con un cuchillo.\n\nDividir en dos grupos: 8 galletas y 4 galletas.",
+            "En un taza derretir una barra de mantequilla, seguir hasta el paso (8) mientras se enfria.",
+            "Agregar 1 bolsa de harina de brownie a un bowl.",
+            "Agregar a la mezcla 1/4 de taza de leche.",
+            "Agregar a la mezcla 1 cucharadita de cafe soluble.",
+            "Agregar a la mezcla dos huevos.",
+            "Agregar a la mezcla 2 cucharaditas de extracto de vainilla.",
+            "Agregar a la mezcla la mantequilla ya fria del paso (2).",
+            "Agregar a la mezcla 8 galletas partidas en 4 partes, del paso (1)",
+            "Mezclar los ingredientes por 2 a 5 minutos hasta tener una mezcla homogenea.",
+            "Precalentar el horno 10 minutos a 180 grados celcius.",
+            "Poner papel encerado en una bandeja y agregar la mezcla.",
+            "Agregar a la mezcla 4 galletas partidas en 4 pedazos en el paso (1).",
+            "Colocar la bandeja dentro del horno, hornear por 30 minutos a 180 grados celcius."
+        ],
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
+        "name": "Brownie Bites",
+        "yield": 36,
+        "images": [],
+        "sellable": false,
+        "salePrice": 0,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786488483576"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.25,
+                "ingredientId": "ing_1786488963329"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1,
+                "ingredientId": "ing_1786490569778"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 2,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1,
+                "ingredientId": "ing_1786490533402"
+            }
+        ],
+        "recipeSteps": [],
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_4503d16e-e4a5-4e89-a411-36c58ab835c2",
+        "name": "Brownie Bites Vaso 12oz",
+        "yield": 1,
+        "images": [],
+        "salePrice": 0,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 0.19444,
+                "ingredientId": "ing_1786488483576"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.04861,
+                "ingredientId": "ing_1786488963329"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.19444,
+                "ingredientId": "ing_1786490569778"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 0.19444,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 0.38889,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.19444,
+                "ingredientId": "ing_1786490533402"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705001"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789267219530"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264704999"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705002"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705004"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264704998"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 30,
+                "ingredientId": "ing_1789269189150"
+            }
+        ],
+        "recipeSteps": [],
+        "piecesPerUnit": 7,
+        "sourceBatchId": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_b0b9a9e2-962e-49e4-9c8f-b670f0033663",
+        "name": "Brownie Bites Vaso 16oz",
+        "yield": 1,
+        "images": [],
+        "sellable": true,
+        "salePrice": 109,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 0.25,
+                "ingredientId": "ing_1786488483576"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.0625,
+                "ingredientId": "ing_1786488963329"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.25,
+                "ingredientId": "ing_1786490569778"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 0.25,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 0.5,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.25,
+                "ingredientId": "ing_1786490533402"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705000"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789267219530"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264704999"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705002"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705004"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264704998"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 30,
+                "ingredientId": "ing_1789269189150"
+            }
+        ],
+        "recipeSteps": [],
+        "piecesPerUnit": 9,
+        "sourceBatchId": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_f8f6baa7-1400-4caa-a8d0-ef06050b0b45",
+        "name": "Brownie Bites Vaso 26oz",
+        "yield": 1,
+        "images": [],
+        "sellable": true,
+        "salePrice": 139,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 0.38889,
+                "ingredientId": "ing_1786488483576"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.09722,
+                "ingredientId": "ing_1786488963329"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.38889,
+                "ingredientId": "ing_1786490569778"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 0.38889,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 0.77778,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.38889,
+                "ingredientId": "ing_1786490533402"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705003"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789267219530"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264704999"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705002"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705004"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264704998"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 30,
+                "ingredientId": "ing_1789269189150"
+            }
+        ],
+        "recipeSteps": [],
+        "piecesPerUnit": 14,
+        "sourceBatchId": "prod_05d04186-7e48-42af-82ac-bc9fa26c12ad",
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_2451e637-3ea2-4fe1-a44d-cadb0af4d31d",
+        "name": "Dip de Chocolate",
+        "yield": 1,
+        "images": [],
+        "salePrice": 0,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264704998"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 30,
+                "ingredientId": "ing_1789269189150"
+            }
+        ],
+        "recipeSteps": [],
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_ed02f2a4-9910-4223-bda4-2f835c7ecf8a",
+        "name": "Crumble Box Chokis 3pz",
+        "yield": 1,
+        "images": [],
+        "sellable": true,
+        "salePrice": 209,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 6,
+                "ingredientId": "ing_1786488765006"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 0.5,
+                "ingredientId": "ing_1786488483576"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.125,
+                "ingredientId": "ing_1786488963329"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.5,
+                "ingredientId": "ing_1786490569778"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 0.5,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.5,
+                "ingredientId": "ing_1786490533402"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.25,
+                "ingredientId": "ing_1786490637269"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789270908085"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 2,
+                "ingredientId": "ing_1789267219530"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705004"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705002"
+            },
+            {
+                "unit": "m",
+                "quantity": 1.5,
+                "ingredientId": "ing_1789270908086"
+            }
+        ],
+        "recipeSteps": [],
+        "piecesPerUnit": 3,
+        "sourceBatchId": "prod_1786492101692",
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_0ec603a2-d3c6-4d43-89a8-ee251f3f6830",
+        "name": "Crumble Box Chokis 6pz",
+        "yield": 1,
+        "images": [],
+        "sellable": true,
+        "salePrice": 379,
+        "ingredients": [
+            {
+                "unit": "pieza",
+                "quantity": 12,
+                "ingredientId": "ing_1786488765006"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786488483576"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.25,
+                "ingredientId": "ing_1786488963329"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1,
+                "ingredientId": "ing_1786490569778"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1786488412834"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 2,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 1,
+                "ingredientId": "ing_1786490533402"
+            },
+            {
+                "unit": "taza",
+                "quantity": 0.5,
+                "ingredientId": "ing_1786490637269"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789270908085"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 2,
+                "ingredientId": "ing_1789267219530"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705004"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 1,
+                "ingredientId": "ing_1789264705002"
+            },
+            {
+                "unit": "m",
+                "quantity": 1.5,
+                "ingredientId": "ing_1789270908086"
+            }
+        ],
+        "recipeSteps": [],
+        "piecesPerUnit": 6,
+        "sourceBatchId": "prod_1786492101692",
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    },
+    {
+        "id": "prod_522a551e-7ba2-4be7-bc16-0afc10edaf6c",
+        "name": "Pumpkin Bread",
+        "yield": 8,
+        "images": [],
+        "sellable": true,
+        "ingredients": [
+            {
+                "unit": "gramo",
+                "quantity": 250,
+                "ingredientId": "ing_1787446230971"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 2,
+                "ingredientId": "ing_pumpkin_polvohornear"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.5,
+                "ingredientId": "ing_1787446307959"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 0.5,
+                "ingredientId": "ing_1787446349417"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 3.5,
+                "ingredientId": "ing_pumpkin_spice"
+            },
+            {
+                "unit": "pieza",
+                "quantity": 3,
+                "ingredientId": "ing_1786490598989"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 200,
+                "ingredientId": "ing_1787446018290"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 50,
+                "ingredientId": "ing_1787446755870"
+            },
+            {
+                "unit": "ml",
+                "quantity": 120,
+                "ingredientId": "ing_pumpkin_aceite"
+            },
+            {
+                "unit": "gramo",
+                "quantity": 455,
+                "ingredientId": "ing_pumpkin_calabaza"
+            },
+            {
+                "unit": "ml",
+                "quantity": 60,
+                "ingredientId": "ing_1786488963329"
+            },
+            {
+                "unit": "cucharadita",
+                "quantity": 2,
+                "ingredientId": "ing_1786490533402"
+            }
+        ],
+        "recipeSteps": [
+            "Cocer 455 g de calabaza cruda y hacer pure (rinde ~250 g). PENDIENTE: registrar tiempo e ingredientes del pure.",
+            "Mezclar secos: harina, polvo para hornear, bicarbonato, sal y 3.5 cucharaditas de pumpkin spice.",
+            "Batir humedos: huevos, azucar morena, azucar blanca, aceite, pure de calabaza, leche y vainilla.",
+            "Integrar secos con humedos sin sobrebatir.",
+            "Hornear. PENDIENTE: registrar temperatura y tiempo."
+        ],
+        "equipmentUsage": [],
+        "prepTimeMinutes": 0
+    }
 ]

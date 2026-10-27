@@ -1,322 +1,393 @@
 [
-  {
-    "id": "ing_1786488412834",
-    "name": "Mantequilla Gloria",
-    "unit": "gramo",
-    "packageSize": 90,
-    "costPerUnit": 30,
-    "customEquivalences": [
-      {
-        "unitName": "taza derretida",
-        "ratioToBase": 0.00439
-      },
-      {
-        "unitName": "pieza",
-        "ratioToBase": 0.0111
-      }
-    ]
-  },
-  {
-    "id": "ing_1786488483576",
-    "name": "Harina Duncan Chewy Fudge",
-    "unit": "gramo",
-    "packageSize": 520,
-    "costPerUnit": 78,
-    "customEquivalences": [
-      {
-        "unitName": "pieza",
-        "ratioToBase": 0.001923
-      }
-    ]
-  },
-  {
-    "id": "ing_1786488765006",
-    "name": "Chokis",
-    "unit": "pieza",
-    "packageSize": 42,
-    "costPerUnit": 58
-  },
-  {
-    "id": "ing_1786488818728",
-    "name": "Oreo",
-    "unit": "pieza",
-    "packageSize": 24,
-    "costPerUnit": 33
-  },
-  {
-    "id": "ing_1786488963329",
-    "name": "Lala deslactosada",
-    "unit": "litro",
-    "packageSize": 6,
-    "costPerUnit": 170
-  },
-  {
-    "id": "ing_1786490533402",
-    "name": "Extracto de Vainilla ProGourmet",
-    "unit": "ml",
-    "packageSize": 150,
-    "costPerUnit": 89,
-    "customEquivalences": []
-  },
-  {
-    "id": "ing_1786490569778",
-    "name": "Café soluble Nescafé",
-    "unit": "gramo",
-    "packageSize": 100,
-    "costPerUnit": 176,
-    "customEquivalences": [
-      {
-        "unitName": "cucharadita",
-        "ratioToBase": 0.5
-      }
-    ]
-  },
-  {
-    "id": "ing_1786490598989",
-    "name": "Huevo Bachoco",
-    "unit": "pieza",
-    "packageSize": 30,
-    "costPerUnit": 70,
-    "customEquivalences": []
-  },
-  {
-    "id": "ing_1786490637269",
-    "name": "Chispas de Chocolate Hershey's",
-    "unit": "gramo",
-    "packageSize": 300,
-    "costPerUnit": 125,
-    "customEquivalences": [
-      {
-        "unitName": "taza",
-        "ratioToBase": 0.006
-      }
-    ]
-  },
-  {
-    "name": "Azúcar Morena Zulka",
-    "unit": "kg",
-    "packageSize": 2,
-    "costPerUnit": 44,
-    "customEquivalences": [],
-    "id": "ing_1787446018290"
-  },
-  {
-    "name": "Manzana Verde",
-    "unit": "kg",
-    "packageSize": 1,
-    "costPerUnit": 38,
-    "customEquivalences": [],
-    "id": "ing_1787446112143"
-  },
-  {
-    "name": "Yoghurt Yoplait Griego Natural sin Azúcar",
-    "unit": "gramo",
-    "packageSize": 145,
-    "costPerUnit": 17,
-    "customEquivalences": [],
-    "id": "ing_1787446192967"
-  },
-  {
-    "name": "Harina de trigo San Blas",
-    "unit": "kg",
-    "packageSize": 1,
-    "costPerUnit": 16,
-    "customEquivalences": [],
-    "id": "ing_1787446230971"
-  },
-  {
-    "name": "Bicarbonato de Sodio",
-    "unit": "gramo",
-    "packageSize": 227,
-    "costPerUnit": 30,
-    "customEquivalences": [],
-    "id": "ing_1787446307959"
-  },
-  {
-    "name": "Sal Refinada",
-    "unit": "gramo",
-    "packageSize": 750,
-    "costPerUnit": 21,
-    "customEquivalences": [],
-    "id": "ing_1787446349417"
-  },
-  {
-    "name": "Canela Molida",
-    "unit": "gramo",
-    "packageSize": 60,
-    "costPerUnit": 23,
-    "customEquivalences": [],
-    "id": "ing_1787446390859"
-  },
-  {
-    "name": "Nuez Great Value",
-    "unit": "gramo",
-    "packageSize": 100,
-    "costPerUnit": 60,
-    "customEquivalences": [],
-    "id": "ing_1787446432693"
-  },
-  {
-    "name": "Jengibre Molido McCormick",
-    "unit": "gramo",
-    "packageSize": 50,
-    "costPerUnit": 48,
-    "customEquivalences": [],
-    "id": "ing_1787446502527"
-  },
-  {
-    "name": "Zanahoria Rallada",
-    "unit": "gramo",
-    "packageSize": 340,
-    "costPerUnit": 29,
-    "customEquivalences": [],
-    "id": "ing_1787446538333"
-  },
-  {
-    "name": "Sazonador Nuez Moscada",
-    "unit": "gramo",
-    "packageSize": 55,
-    "costPerUnit": 50,
-    "customEquivalences": [],
-    "id": "ing_1787446585470"
-  },
-  {
-    "name": "Queso Crema Philadelphia",
-    "unit": "gramo",
-    "packageSize": 127,
-    "costPerUnit": 27,
-    "customEquivalences": [],
-    "id": "ing_1787446650514"
-  },
-  {
-    "name": "Azúcar Glass Zulka",
-    "unit": "gramo",
-    "packageSize": 500,
-    "costPerUnit": 25,
-    "customEquivalences": [],
-    "id": "ing_1787446683890"
-  },
-  {
-    "name": "Azúcar Estándar",
-    "unit": "gramo",
-    "packageSize": 900,
-    "costPerUnit": 21,
-    "customEquivalences": [],
-    "id": "ing_1787446755870"
-  },
-  {
-    "name": "Azúcar Mascabado",
-    "unit": "kg",
-    "packageSize": 1,
-    "costPerUnit": 47,
-    "customEquivalences": [],
-    "id": "ing_1787446784902"
-  },
-  {
-    "name": "Pretzel Brownie",
-    "unit": "gramo",
-    "packageSize": 140,
-    "costPerUnit": 88,
-    "customEquivalences": [],
-    "id": "ing_1788226469981"
-  },
-  {
-    "id": "ing_1789264704998",
-    "name": "Contenedores de dip 2oz",
-    "unit": "pieza",
-    "packageSize": 100,
-    "costPerUnit": 140,
-    "customEquivalences": [],
-    "category": "packaging"
-  },
-  {
-    "id": "ing_1789264704999",
-    "name": "Tenedor coctelero",
-    "unit": "pieza",
-    "packageSize": 200,
-    "costPerUnit": 189,
-    "customEquivalences": [],
-    "category": "packaging"
-  },
-  {
-    "id": "ing_1789264705000",
-    "name": "Vaso de 16oz",
-    "unit": "pieza",
-    "packageSize": 50,
-    "costPerUnit": 624,
-    "customEquivalences": [],
-    "category": "packaging"
-  },
-  {
-    "id": "ing_1789264705001",
-    "name": "Vaso de 12oz",
-    "unit": "pieza",
-    "packageSize": 25,
-    "costPerUnit": 545,
-    "customEquivalences": [],
-    "category": "packaging"
-  },
-  {
-    "id": "ing_1789264705002",
-    "name": "Bolsa de manga",
-    "unit": "pieza",
-    "packageSize": 500,
-    "costPerUnit": 395,
-    "customEquivalences": [],
-    "category": "packaging"
-  },
-  {
-    "id": "ing_1789264705003",
-    "name": "Vaso de 26oz",
-    "unit": "pieza",
-    "packageSize": 50,
-    "costPerUnit": 649,
-    "customEquivalences": [],
-    "category": "packaging"
-  },
-  {
-    "id": "ing_1789264705004",
-    "name": "Stickers",
-    "unit": "pieza",
-    "packageSize": 100,
-    "costPerUnit": 210,
-    "customEquivalences": [],
-    "category": "packaging"
-  },
-  {
-    "id": "ing_1789267219530",
-    "name": "Envoltura de papel encerado",
-    "unit": "pieza",
-    "packageSize": 200,
-    "costPerUnit": 374,
-    "customEquivalences": [],
-    "category": "packaging"
-  },
-  {
-    "id": "ing_1789269189150",
-    "name": "Jarabe de chocolate Hershey's",
-    "unit": "gramo",
-    "packageSize": 589,
-    "costPerUnit": 102,
-    "customEquivalences": [],
-    "category": "food"
-  },
-  {
-    "id": "ing_1789270908085",
-    "name": "Caja de Galletas",
-    "unit": "pieza",
-    "packageSize": 25,
-    "costPerUnit": 299,
-    "customEquivalences": [],
-    "category": "packaging"
-  },
-  {
-    "id": "ing_1789270908086",
-    "name": "Cuerda de Yute",
-    "unit": "m",
-    "packageSize": 200,
-    "costPerUnit": 150,
-    "customEquivalences": [],
-    "category": "packaging"
-  }
+    {
+        "id": "ing_1786488412834",
+        "name": "Mantequilla Gloria",
+        "unit": "gramo",
+        "costPerUnit": 30,
+        "packageSize": 90,
+        "customEquivalences": [
+            {
+                "unitName": "taza derretida",
+                "ratioToBase": 0.00439
+            },
+            {
+                "unitName": "pieza",
+                "ratioToBase": 0.0111
+            }
+        ]
+    },
+    {
+        "id": "ing_1786488483576",
+        "name": "Harina Duncan Chewy Fudge",
+        "unit": "gramo",
+        "costPerUnit": 78,
+        "packageSize": 520,
+        "customEquivalences": [
+            {
+                "unitName": "pieza",
+                "ratioToBase": 0.001923
+            }
+        ]
+    },
+    {
+        "id": "ing_1786488765006",
+        "name": "Chokis",
+        "unit": "pieza",
+        "costPerUnit": 58,
+        "packageSize": 42
+    },
+    {
+        "id": "ing_1786488818728",
+        "name": "Oreo",
+        "unit": "pieza",
+        "costPerUnit": 33,
+        "packageSize": 24
+    },
+    {
+        "id": "ing_1786488963329",
+        "name": "Lala deslactosada",
+        "unit": "litro",
+        "costPerUnit": 170,
+        "packageSize": 6
+    },
+    {
+        "id": "ing_1786490533402",
+        "name": "Extracto de Vainilla ProGourmet",
+        "unit": "ml",
+        "costPerUnit": 89,
+        "packageSize": 150,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1786490569778",
+        "name": "Café soluble Nescafé",
+        "unit": "gramo",
+        "costPerUnit": 176,
+        "packageSize": 100,
+        "customEquivalences": [
+            {
+                "unitName": "cucharadita",
+                "ratioToBase": 0.5
+            }
+        ]
+    },
+    {
+        "id": "ing_1786490598989",
+        "name": "Huevo Bachoco",
+        "unit": "pieza",
+        "costPerUnit": 70,
+        "packageSize": 30,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1786490637269",
+        "name": "Chispas de Chocolate Hershey's",
+        "unit": "gramo",
+        "costPerUnit": 125,
+        "packageSize": 300,
+        "customEquivalences": [
+            {
+                "unitName": "taza",
+                "ratioToBase": 0.006
+            }
+        ]
+    },
+    {
+        "id": "ing_1787446018290",
+        "name": "Azúcar Morena Zulka",
+        "unit": "kg",
+        "costPerUnit": 44,
+        "packageSize": 2,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1787446112143",
+        "name": "Manzana Verde",
+        "unit": "kg",
+        "costPerUnit": 38,
+        "packageSize": 1,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1787446192967",
+        "name": "Yoghurt Yoplait Griego Natural sin Azúcar",
+        "unit": "gramo",
+        "costPerUnit": 17,
+        "packageSize": 145,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1787446230971",
+        "name": "Harina de trigo San Blas",
+        "unit": "kg",
+        "costPerUnit": 16,
+        "packageSize": 1,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1787446307959",
+        "name": "Bicarbonato de Sodio",
+        "unit": "gramo",
+        "costPerUnit": 30,
+        "packageSize": 227,
+        "customEquivalences": [
+            {
+                "unitName": "cucharadita",
+                "ratioToBase": 0.2174
+            }
+        ]
+    },
+    {
+        "id": "ing_1787446349417",
+        "name": "Sal Refinada",
+        "unit": "gramo",
+        "costPerUnit": 21,
+        "packageSize": 750,
+        "customEquivalences": [
+            {
+                "unitName": "cucharadita",
+                "ratioToBase": 0.1667
+            }
+        ]
+    },
+    {
+        "id": "ing_1787446390859",
+        "name": "Canela Molida",
+        "unit": "gramo",
+        "costPerUnit": 23,
+        "packageSize": 60,
+        "customEquivalences": [
+            {
+                "unitName": "cucharadita",
+                "ratioToBase": 0.3846
+            }
+        ]
+    },
+    {
+        "id": "ing_1787446432693",
+        "name": "Nuez Great Value",
+        "unit": "gramo",
+        "costPerUnit": 60,
+        "packageSize": 100,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1787446502527",
+        "name": "Jengibre Molido McCormick",
+        "unit": "gramo",
+        "costPerUnit": 48,
+        "packageSize": 50,
+        "customEquivalences": [
+            {
+                "unitName": "cucharadita",
+                "ratioToBase": 0.5556
+            }
+        ]
+    },
+    {
+        "id": "ing_1787446538333",
+        "name": "Zanahoria Rallada",
+        "unit": "gramo",
+        "costPerUnit": 29,
+        "packageSize": 340,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1787446585470",
+        "name": "Sazonador Nuez Moscada",
+        "unit": "gramo",
+        "costPerUnit": 50,
+        "packageSize": 55,
+        "customEquivalences": [
+            {
+                "unitName": "cucharadita",
+                "ratioToBase": 0.4545
+            }
+        ]
+    },
+    {
+        "id": "ing_1787446650514",
+        "name": "Queso Crema Philadelphia",
+        "unit": "gramo",
+        "costPerUnit": 27,
+        "packageSize": 127,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1787446683890",
+        "name": "Azúcar Glass Zulka",
+        "unit": "gramo",
+        "costPerUnit": 25,
+        "packageSize": 500,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1787446755870",
+        "name": "Azúcar Estándar",
+        "unit": "gramo",
+        "costPerUnit": 21,
+        "packageSize": 900,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1787446784902",
+        "name": "Azúcar Mascabado",
+        "unit": "kg",
+        "costPerUnit": 47,
+        "packageSize": 1,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1788226469981",
+        "name": "Pretzel Brownie",
+        "unit": "gramo",
+        "costPerUnit": 88,
+        "packageSize": 140,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789264704998",
+        "name": "Contenedores de dip 2oz",
+        "unit": "pieza",
+        "category": "packaging",
+        "costPerUnit": 140,
+        "packageSize": 100,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789264704999",
+        "name": "Tenedor coctelero",
+        "unit": "pieza",
+        "category": "packaging",
+        "costPerUnit": 189,
+        "packageSize": 200,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789264705000",
+        "name": "Vaso de 16oz",
+        "unit": "pieza",
+        "category": "packaging",
+        "costPerUnit": 624,
+        "packageSize": 50,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789264705001",
+        "name": "Vaso de 12oz",
+        "unit": "pieza",
+        "category": "packaging",
+        "costPerUnit": 545,
+        "packageSize": 25,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789264705002",
+        "name": "Bolsa de manga",
+        "unit": "pieza",
+        "category": "packaging",
+        "costPerUnit": 395,
+        "packageSize": 500,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789264705003",
+        "name": "Vaso de 26oz",
+        "unit": "pieza",
+        "category": "packaging",
+        "costPerUnit": 649,
+        "packageSize": 50,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789264705004",
+        "name": "Stickers",
+        "unit": "pieza",
+        "category": "packaging",
+        "costPerUnit": 210,
+        "packageSize": 100,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789267219530",
+        "name": "Envoltura de papel encerado",
+        "unit": "pieza",
+        "category": "packaging",
+        "costPerUnit": 374,
+        "packageSize": 200,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789269189150",
+        "name": "Jarabe de chocolate Hershey's",
+        "unit": "gramo",
+        "category": "food",
+        "costPerUnit": 102,
+        "packageSize": 589,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789270908085",
+        "name": "Caja de Galletas",
+        "unit": "pieza",
+        "category": "packaging",
+        "costPerUnit": 299,
+        "packageSize": 25,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_1789270908086",
+        "name": "Cuerda de Yute",
+        "unit": "m",
+        "category": "packaging",
+        "costPerUnit": 150,
+        "packageSize": 200,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_pumpkin_polvohornear",
+        "name": "Polvo para Hornear Rexal",
+        "unit": "gramo",
+        "category": "food",
+        "costPerUnit": 18,
+        "packageSize": 100,
+        "customEquivalences": [
+            {
+                "unitName": "cucharadita",
+                "ratioToBase": 0.2083
+            }
+        ]
+    },
+    {
+        "id": "ing_pumpkin_aceite",
+        "name": "Aceite Vegetal",
+        "unit": "ml",
+        "category": "food",
+        "costPerUnit": 25,
+        "packageSize": 450,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_pumpkin_calabaza",
+        "name": "Calabaza (entera, para pure)",
+        "unit": "kg",
+        "category": "food",
+        "costPerUnit": 20,
+        "packageSize": 1,
+        "customEquivalences": []
+    },
+    {
+        "id": "ing_pumpkin_spice",
+        "name": "Sazonador Pumpkin Spice Alpont",
+        "unit": "gramo",
+        "category": "food",
+        "costPerUnit": 99,
+        "packageSize": 100,
+        "customEquivalences": [
+            {
+                "unitName": "cucharadita",
+                "ratioToBase": 0.4348
+            }
+        ]
+    }
 ]
